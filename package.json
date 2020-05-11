@@ -15,6 +15,9 @@
 		"url": "https://github.com/AcrylicShrimp/devlog-frontend/issues"
 	},
 	"homepage": "https://github.com/AcrylicShrimp/devlog-frontend#readme",
+	"dependencies": {
+		"axios": "^0.19.2"
+	},
 	"devDependencies": {
 		"css-loader": "^3.5.3",
 		"sass": "^1.26.5",
