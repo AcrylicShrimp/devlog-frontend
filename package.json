@@ -2,7 +2,6 @@
 	"name": "devlog-frontend",
 	"version": "1.0.0",
 	"description": "A minimal devlog service.",
-	"main": "index.js",
 	"scripts": {
 		"run:dev": "cross-env NODE_ENV=development webpack-dev-server",
 		"build": "cross-env NODE_ENV=production webpack"
