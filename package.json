@@ -3,7 +3,10 @@
 	"version": "1.0.0",
 	"description": "A minimal devlog service.",
 	"main": "index.js",
-	"scripts": {},
+	"scripts": {
+		"run:dev": "cross-env NODE_ENV=development webpack-dev-server",
+		"build": "cross-env NODE_ENV=production webpack"
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/AcrylicShrimp/devlog-frontend.git"
