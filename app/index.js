@@ -1,4 +1,5 @@
-import './reset.sass';
+import 'normalize.css';
+import './global.sass';
 
 import App from './App';
 
