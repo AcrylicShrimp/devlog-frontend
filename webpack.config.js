@@ -9,7 +9,7 @@ const config = {
 	mode: production ? 'production' : 'development',
 	target: 'web',
 	entry: {
-		index: './app/index.ts'
+		index: './app/index.js'
 	},
 	optimization: {
 		splitChunks: {
