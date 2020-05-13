@@ -2,11 +2,10 @@ import * as path from 'path';
 
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import { Configuration } from 'webpack';
 
 const production = process.env.NODE_ENV === 'production';
 
-const config: Configuration = {
+const config = {
 	mode: production ? 'production' : 'development',
 	target: 'web',
 	entry: {
@@ -26,11 +25,6 @@ const config: Configuration = {
 	},
 	module: {
 		rules: [
-			{
-				test: /\.ts$/,
-				use: ['babel-loader', 'ts-loader'],
-				exclude: /node_modules/
-			},
 			{
 				test: /\.m?js$/,
 				use: ['babel-loader'],
@@ -112,7 +106,7 @@ const config: Configuration = {
 		alias: {
 			svelte: path.resolve('node_modules', 'svelte')
 		},
-		extensions: ['.ts', '.mjs', '.js', '.svelte'],
+		extensions: ['.mjs', '.js', '.svelte'],
 		mainFields: ['svelte', 'browser', 'module', 'main']
 	},
 	output: {
