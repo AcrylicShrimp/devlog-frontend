@@ -1,1 +1,5 @@
-<p>devlog</p>
+<script>
+  import Nav from "./components/nav/Nav";
+</script>
+
+<Nav />
