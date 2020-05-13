@@ -1,0 +1,4 @@
+{
+	"css.validate": false,
+	"svelte.plugin.css.enable": false
+}
