@@ -1,8 +1,9 @@
 import 'normalize.css';
-import './global.sass';
+
+import './global.css';
 
 import App from './App';
 
 export default new App({
-	target: document.body
+	target: document.body,
 });

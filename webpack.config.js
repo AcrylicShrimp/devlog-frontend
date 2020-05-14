@@ -9,7 +9,7 @@ const config = {
 	mode: production ? 'production' : 'development',
 	target: 'web',
 	entry: {
-		index: './app/index.js'
+		index: './app/index.js',
 	},
 	optimization: {
 		splitChunks: {
@@ -18,17 +18,17 @@ const config = {
 					name: 'styles',
 					test: /\.css$/,
 					chunks: 'all',
-					enforce: true
-				}
-			}
-		}
+					enforce: true,
+				},
+			},
+		},
 	},
 	module: {
 		rules: [
 			{
 				test: /\.m?js$/,
 				use: ['babel-loader'],
-				exclude: /node_modules/
+				exclude: /node_modules/,
 			},
 			{
 				test: /\.(html|svelte)$/,
@@ -36,19 +36,13 @@ const config = {
 					'babel-loader',
 					{
 						loader: 'svelte-loader',
-						options: Object.assign(
-							{
-								emitCss: true,
-								hotReload: !production,
-								externalDependencies: [
-									path.resolve(__dirname, 'svelte.config.js')
-								]
-							},
-							require('./svelte.config')
-						)
-					}
+						options: {
+							emitCss: true,
+							hotReload: !production,
+						},
+					},
 				],
-				exclude: [/node_modules\/(?!svelte)/, /app\/index\.html$/]
+				exclude: [/node_modules\/(?!svelte)/, /app\/index\.html$/],
 			},
 			{
 				test: /\.css$/,
@@ -57,31 +51,17 @@ const config = {
 						loader: MiniCssExtractPlugin.loader,
 						options: {
 							hmr: !production,
-							publicPath: '/'
-						}
-					},
-					'css-loader'
-				]
-			},
-			{
-				test: /\.s[ac]ss$/,
-				use: [
-					{
-						loader: MiniCssExtractPlugin.loader,
-						options: {
-							hmr: !production,
-							publicPath: '/'
-						}
+							publicPath: '/',
+						},
 					},
 					'css-loader',
-					'sass-loader'
-				]
-			}
-		]
+				],
+			},
+		],
 	},
 	plugins: [
 		new MiniCssExtractPlugin({
-			filename: '[name].css'
+			filename: '[name].css',
 		}),
 		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, 'app', 'index.html'),
@@ -97,22 +77,22 @@ const config = {
 					keepClosingSlash: true,
 					minifyJS: true,
 					minifyCSS: true,
-					minifyURLs: true
+					minifyURLs: true,
 				}) ||
-				undefined
-		})
+				undefined,
+		}),
 	],
 	resolve: {
 		alias: {
-			svelte: path.resolve('node_modules', 'svelte')
+			svelte: path.resolve('node_modules', 'svelte'),
 		},
 		extensions: ['.mjs', '.js', '.svelte'],
-		mainFields: ['svelte', 'browser', 'module', 'main']
+		mainFields: ['svelte', 'browser', 'module', 'main'],
 	},
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: '[name].js'
-	}
+		filename: '[name].js',
+	},
 };
 
 module.exports = config;
