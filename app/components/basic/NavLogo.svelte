@@ -7,6 +7,7 @@
 		font-family: 'Raleway', sans-serif;
 		font-size: 34px;
 		color: white;
+		user-select: none;
 	}
 </style>
 
