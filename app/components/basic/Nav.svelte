@@ -1,5 +1,6 @@
 <style>
 	.nav-container {
+		position: relative;
 		height: 60px;
 		background-color: #ffc85f;
 		box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
