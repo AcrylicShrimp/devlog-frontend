@@ -13,7 +13,7 @@
 
 	const routes = {
 		'/': List,
-		'/:slug': Post,
+		'/posts/:slug': Post,
 		'/login': Login,
 		'*': NotFound,
 	};

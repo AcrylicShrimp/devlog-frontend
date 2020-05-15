@@ -95,7 +95,7 @@
 		{#each posts as post}
 			<a
 				class="post-link"
-				href="{`/${post.slug}`}"
+				href="{`/posts/${post.slug}`}"
 				target="_self"
 				use:link
 			>
