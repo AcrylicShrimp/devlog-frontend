@@ -20,6 +20,8 @@
 	import axios from 'axios';
 	import { push } from 'svelte-spa-router';
 
+	import { token } from '../stores/token';
+
 	import Input from '../components/input/Input';
 
 	let authenticating = false;
@@ -41,6 +43,7 @@
 			);
 
 			sessionStorage.setItem('api-token', result.data);
+			token.set(result.data);
 
 			push('/');
 		} catch {

@@ -11,6 +11,8 @@
 	import NotFound from './pages/NotFound';
 	import Post from './pages/Post';
 
+	import { token } from './stores/token';
+
 	const routes = {
 		'/': List,
 		'/posts/:slug': Post,
@@ -20,6 +22,8 @@
 
 	if (!window.location.hash || window.location.hash == '#')
 		history.replaceState(undefined, undefined, '#/');
+
+	token.set(sessionStorage.getItem('api-token') || null);
 </script>
 
 <Nav />

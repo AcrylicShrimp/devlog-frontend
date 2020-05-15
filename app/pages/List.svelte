@@ -66,26 +66,31 @@
 	import dayjs from 'dayjs';
 	import { link } from 'svelte-spa-router';
 
+	import { token } from '../stores/token';
+
 	import Error from './Error';
 
 	let posts = undefined;
+	let apiToken = null;
+
+	token.subscribe((token) => (apiToken = token));
 
 	(async () => {
-		const token = sessionStorage.getItem('api-token');
-
 		try {
 			const result = await axios.get(
 				'https://api.blog.ashrimp.dev/posts',
 				{
-					headers: token && {
-						'Api-Token': token,
+					headers: apiToken && {
+						'Api-Token': apiToken,
 					},
 				}
 			);
 
 			posts = result.data;
-		} catch {
-			posts = [];
+		} catch (err) {
+			posts = null;
+
+			if (err.response.status === 401) token.set(null);
 		}
 	})();
 </script>

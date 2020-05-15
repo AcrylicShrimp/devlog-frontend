@@ -47,27 +47,32 @@
 	import axios from 'axios';
 	import dayjs from 'dayjs';
 
+	import { token } from '../stores/token';
+
 	import Error from './Error';
 
 	let post = undefined;
+	let apiToken = null;
 	export let params = {};
 
-	(async () => {
-		const token = sessionStorage.getItem('api-token');
+	token.subscribe((token) => (apiToken = token));
 
+	(async () => {
 		try {
 			const result = await axios.get(
 				`https://api.blog.ashrimp.dev/posts/${params.slug}`,
 				{
-					headers: token && {
-						'Api-Token': token,
+					headers: apiToken && {
+						'Api-Token': apiToken,
 					},
 				}
 			);
 
 			post = result.data;
-		} catch {
+		} catch (err) {
 			post = null;
+
+			if (err.response.status === 401) token.set(null);
 		}
 	})();
 </script>
