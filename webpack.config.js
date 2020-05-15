@@ -58,6 +58,13 @@ const config = {
 					'css-loader',
 				],
 			},
+			{
+				test: /\.(otf|ttf|eot|woff2?|svg)$/,
+				loader: 'file-loader',
+				options: {
+					name: 'fonts/[name].[ext]',
+				},
+			},
 		],
 	},
 	plugins: [
