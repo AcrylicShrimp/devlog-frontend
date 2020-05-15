@@ -66,33 +66,51 @@
 	import dayjs from 'dayjs';
 	import { link } from 'svelte-spa-router';
 
-	let posts = [];
+	import Error from './Error';
+
+	let posts = undefined;
 
 	(async () => {
 		const token = sessionStorage.getItem('api-token');
-		const result = await axios.get('https://api.blog.ashrimp.dev/posts', {
-			headers: token && {
-				'Api-Token': token,
-			},
-		});
 
-		posts = result.data;
+		try {
+			const result = await axios.get(
+				'https://api.blog.ashrimp.dev/posts',
+				{
+					headers: token && {
+						'Api-Token': token,
+					},
+				}
+			);
+
+			posts = result.data;
+		} catch {
+			posts = [];
+		}
 	})();
 </script>
 
-{#each posts as post}
-	<a class="post-link" href="{`/${post.slug}`}" use:link>
-		<article class="post">
-			<span class="post-category" class:exists="{post.category}">
-				{post.category ? post.category.name : ''}
-			</span>
-			<div class="post-header-container">
-				<h1 class="post-title">{post.title}</h1>
-				<span class="post-date">
-					{dayjs(post.createdAt).format('YYYY/MM/DD HH:mm')}
-				</span>
-			</div>
-			<p class="post-content">{post.contentPreview}</p>
-		</article>
-	</a>
-{/each}
+{#if posts}
+	{#if posts.length}
+		{#each posts as post}
+			<a class="post-link" href="{`/${post.slug}`}" use:link>
+				<article class="post">
+					<span class="post-category" class:exists="{post.category}">
+						{post.category ? post.category.name : ''}
+					</span>
+					<div class="post-header-container">
+						<h1 class="post-title">{post.title}</h1>
+						<span class="post-date">
+							{dayjs(post.createdAt).format('YYYY/MM/DD HH:mm')}
+						</span>
+					</div>
+					<p class="post-content">{post.contentPreview}</p>
+				</article>
+			</a>
+		{/each}
+	{:else}
+		<Error message="No post yet!" />
+	{/if}
+{:else if posts === null}
+	<Error message="Post not found!" />
+{/if}
