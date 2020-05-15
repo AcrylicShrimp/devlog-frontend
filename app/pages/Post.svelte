@@ -28,16 +28,20 @@
 		margin: 0;
 		margin-top: 32px;
 		font-family: 'Nanum Myeongjo', serif;
-		font-size: 29px;
+		font-size: 34px;
+		font-size: bold;
 		color: #404040;
 	}
 
 	.post-content-container {
-		margin-top: 50px;
+		margin-top: 30px;
 	}
 </style>
 
 <script>
+	import 'font-awesome/css/font-awesome.css';
+
+	import './halflife.css';
 	import './Post.css';
 
 	import axios from 'axios';

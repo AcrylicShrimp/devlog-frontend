@@ -1,5 +1,129 @@
+article > *:first-child {
+	margin-top: 0;
+}
+
+article h1 {
+	margin-top: 50px;
+	margin-bottom: 15px;
+	font-family: 'Nanum Myeongjo', serif;
+	font-size: 27px;
+	font-weight: bold;
+	color: #333333;
+}
+
+article h2 {
+	margin-top: 40px;
+	margin-bottom: 12px;
+	font-family: 'Nanum Myeongjo', serif;
+	font-size: 24px;
+	font-weight: bold;
+	color: #333333;
+}
+
+article h3 {
+	margin-top: 32px;
+	margin-bottom: 8px;
+	font-family: 'Nanum Myeongjo', serif;
+	font-size: 21px;
+	font-weight: bold;
+	color: #333333;
+}
+
+article h4 {
+	margin-top: 28px;
+	margin-bottom: 8px;
+	font-family: 'Nanum Myeongjo', serif;
+	font-size: 19px;
+	font-weight: normal;
+	color: #333333;
+}
+
+article h5 {
+	margin-top: 24px;
+	margin-bottom: 8px;
+	font-family: 'Nanum Myeongjo', serif;
+	font-size: 18px;
+	font-weight: normal;
+	color: #333333;
+}
+
+article h6 {
+	margin-top: 20px;
+	margin-bottom: 8px;
+	font-family: 'Nanum Myeongjo', serif;
+	font-size: 17px;
+	font-weight: normal;
+	color: #333333;
+}
+
+article p {
+	margin: 0;
+	font-family: 'Nanum Gothic', 'Roboto', sans-serif;
+	font-size: 16px;
+	line-height: 1.8em;
+	color: #1c1c1c;
+}
+
+article a {
+	color: unset;
+	text-decoration: none;
+}
+
+article a::after {
+	position: relative;
+	top: -0.5em;
+	content: '\f08e';
+	font-family: 'FontAwesome';
+	font-size: 70%;
+	font-weight: normal;
+	line-height: normal;
+	vertical-align: baseline;
+}
+
 article img {
 	margin: 25px auto;
 	display: block;
 	max-width: 75%;
+}
+
+article code {
+	font-family: 'Inconsolata', monospace;
+	color: #4b4b4b;
+}
+
+article pre {
+	margin: 20px 0;
+	border-radius: 4px;
+	padding: 18px 22px;
+	background-color: #222222;
+	line-height: 1.25em;
+	overflow-x: scroll;
+}
+
+article pre ::-moz-selection {
+	background-color: #f85931;
+	color: white;
+}
+
+article pre ::selection {
+	background-color: #f85931;
+	color: white;
+}
+
+article pre > code {
+	color: #cccccc;
+}
+
+article ol,
+article ul {
+	margin: 20px 0;
+	padding: 0 0 0 35px;
+	font-family: 'Nanum Gothic', 'Roboto', sans-serif;
+	font-size: 16px;
+	line-height: 1.5em;
+	color: #1c1c1c;
+}
+
+article li + li {
+	margin-top: 8px;
 }
