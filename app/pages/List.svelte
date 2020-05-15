@@ -122,5 +122,5 @@
 		<Error message="No post yet!" />
 	{/if}
 {:else if posts === null}
-	<Error message="Post not found!" />
+	<Error message="Unable to load posts!" />
 {/if}
