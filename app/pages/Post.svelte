@@ -43,7 +43,7 @@
 	import axios from 'axios';
 	import dayjs from 'dayjs';
 
-	import NotFound from './NotFound';
+	import Error from './Error';
 
 	let post = undefined;
 	export let params = {};
@@ -82,5 +82,5 @@
 		{@html post.htmlContent}
 	</article>
 {:else if post === null}
-	<NotFound />
+	<Error message="Post not found!" />
 {/if}

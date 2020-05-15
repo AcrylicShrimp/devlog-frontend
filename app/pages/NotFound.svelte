@@ -1,10 +1,5 @@
-<style>
-	.message {
-		margin: 0;
-		font-family: 'Raleway', sans-serif;
-		font-size: 21px;
-		text-align: center;
-	}
-</style>
+<script>
+	import Error from './Error';
+</script>
 
-<p class="message">Post not found!</p>
+<Error message="Page not found!" />
