@@ -15,6 +15,6 @@
 	import { link } from 'svelte-spa-router';
 </script>
 
-<a class="logo-link" href="/" use:link>
+<a class="logo-link" href="/" target="_self" use:link>
 	<span class="logo-text">devlog</span>
 </a>

@@ -93,7 +93,12 @@
 {#if posts}
 	{#if posts.length}
 		{#each posts as post}
-			<a class="post-link" href="{`/${post.slug}`}" use:link>
+			<a
+				class="post-link"
+				href="{`/${post.slug}`}"
+				target="_self"
+				use:link
+			>
 				<article class="post">
 					<span class="post-category" class:exists="{post.category}">
 						{post.category ? post.category.name : ''}
