@@ -47,7 +47,7 @@
 
 <script>
 	import axios from 'axios';
-	import { link } from 'svelte-spa-router';
+	import { link, push } from 'svelte-spa-router';
 
 	import { token } from '../../stores/token';
 
@@ -67,8 +67,10 @@
 				`https://api.blog.ashrimp.dev/admin/sessions/${apiToken}`
 			);
 
-			sessionStorage.setItem('api-token', null);
+			sessionStorage.removeItem('api-token');
 			token.set(null);
+
+			push('/');
 		} catch {
 		} finally {
 			loggingOut = false;
