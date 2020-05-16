@@ -73,9 +73,13 @@
 	let posts = undefined;
 	let apiToken = null;
 
-	token.subscribe((token) => (apiToken = token));
+	token.subscribe((token) => {
+		posts = undefined;
+		apiToken = token;
+		updatePostList();
+	});
 
-	(async () => {
+	async function updatePostList() {
 		try {
 			const result = await axios.get(
 				'https://api.blog.ashrimp.dev/posts',
@@ -92,7 +96,7 @@
 
 			if (err.response.status === 401) token.set(null);
 		}
-	})();
+	}
 </script>
 
 {#if posts}
