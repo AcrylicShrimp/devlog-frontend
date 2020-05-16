@@ -1,6 +1,7 @@
 <style>
 	.content-container {
 		padding-bottom: 120px;
+		min-height: 100vh;
 	}
 
 	.content-container-inner {
