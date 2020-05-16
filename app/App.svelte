@@ -28,6 +28,6 @@
 
 <Nav />
 <Content>
-	<Router routes="{routes}" />
+	<Router routes="{routes}" on:routeLoaded="{() => window.scrollTo(0, 0)}" />
 </Content>
 <Footer />
