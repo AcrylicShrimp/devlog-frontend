@@ -17,7 +17,7 @@
 		border-bottom: 2px solid #ffca64;
 		padding: 2px 4px;
 		width: 100%;
-		font-family: 'Nanum Gothic', 'Roboto', sans-serif;
+		font-family: inherit;
 		font-size: 16px;
 		outline: none;
 	}
