@@ -4,7 +4,6 @@
 		margin: 0;
 		padding-left: 10px;
 		margin-top: 10px;
-		font-family: 'Roboto', sans-serif;
 		font-size: 13px;
 		color: #ff5a5a;
 	}
@@ -55,5 +54,5 @@
 		on:focus="{() => (error = false)}"
 		on:blur="{onBlurInput}"
 	/>
-	<p class="error" class:show="{error}">{errmsg}</p>
+	<p class="font sans-serif error" class:show="{error}">{errmsg}</p>
 </div>
