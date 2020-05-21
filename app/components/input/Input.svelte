@@ -31,7 +31,7 @@
 	let error = false;
 	export let hide = false;
 	export let disabled = false;
-	export let regex;
+	export let regex = /^\s\S*$/;
 	export let placeholder;
 	export let errmsg = '';
 
