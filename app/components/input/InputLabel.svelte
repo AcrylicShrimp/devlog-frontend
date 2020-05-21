@@ -1,7 +1,6 @@
 <style>
 	.label {
 		margin: 0;
-		font-family: inherit;
 		font-size: 18px;
 		color: #1a1a1a;
 	}
@@ -17,7 +16,7 @@
 	export let label;
 </script>
 
-<p class="label">{label}</p>
+<p class="font serif label">{label}</p>
 <div class="container">
 	<slot />
 </div>
