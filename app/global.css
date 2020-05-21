@@ -6,3 +6,23 @@ html,
 body {
 	background-color: #f2f2f2;
 }
+
+.font.serif {
+	font-family: 'Nanum Myeongjo', serif;
+}
+
+.font.sans-serif {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+.font.sans-serif.roboto {
+	font-family: 'Roboto', sans-serif;
+}
+
+.font.sans-serif.raleway {
+	font-family: 'Raleway', sans-serif;
+}
+
+.font.monospace {
+	font-family: 'Inconsolata', monospace;
+}
