@@ -1,8 +1,8 @@
 <style>
 	.label {
 		margin: 0;
-		font-size: 16px;
 		font-family: inherit;
+		font-size: 18px;
 		color: #1a1a1a;
 	}
 
