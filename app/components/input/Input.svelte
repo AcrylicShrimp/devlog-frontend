@@ -34,6 +34,7 @@
 	export let regex = /^\s\S*$/;
 	export let placeholder;
 	export let errmsg = '';
+	export let defaultValue = '';
 
 	function onBlurInput(event) {
 		const value = event.target.value;
@@ -53,6 +54,7 @@
 		placeholder="{placeholder}"
 		on:focus="{() => (error = false)}"
 		on:blur="{onBlurInput}"
+		value="{defaultValue}"
 	/>
 	<p class="font sans-serif error" class:show="{error}">{errmsg}</p>
 </div>
