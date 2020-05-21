@@ -43,7 +43,10 @@ const config = {
 						},
 					},
 				],
-				exclude: [/node_modules\/(?!svelte)/, /app\/index\.html$/],
+				exclude: [
+					/node_modules[\/\\](?!svelte)/,
+					/app[\/\\]index\.html$/,
+				],
 			},
 			{
 				test: /\.css$/,
