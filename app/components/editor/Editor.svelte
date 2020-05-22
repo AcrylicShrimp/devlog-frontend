@@ -269,13 +269,6 @@
 				category="{category}"
 				title="{title}"
 				content="{htmlContent}"
-				on:click="{() => dispatch('post', {
-						slug,
-						accessLevel,
-						category,
-						title,
-						content,
-					})}"
 			/>
 		</div>
 	{/if}
