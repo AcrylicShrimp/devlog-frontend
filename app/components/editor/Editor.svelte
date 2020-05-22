@@ -289,6 +289,7 @@
 					category,
 					title,
 					content,
+					images,
 				});
 			}}"
 		>
