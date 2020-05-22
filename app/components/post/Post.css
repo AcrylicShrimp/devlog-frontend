@@ -97,7 +97,7 @@ article pre {
 	padding: 18px 22px;
 	background-color: #222222;
 	line-height: 1.25em;
-	overflow-x: scroll;
+	overflow-x: auto;
 }
 
 article pre ::-moz-selection {
