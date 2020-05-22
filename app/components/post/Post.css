@@ -81,9 +81,10 @@ article a::after {
 }
 
 article img {
-	margin: 25px auto;
 	display: block;
-	max-width: 75%;
+	margin: 25px auto;
+	border-radius: 4px;
+	max-width: 90%;
 }
 
 article code {
