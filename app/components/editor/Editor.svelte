@@ -79,7 +79,7 @@
 		margin-top: 80px;
 	}
 
-	.category-select {
+	.input-select {
 		border: 0;
 		border-bottom: 2px solid #ffca64;
 		padding: 2px 4px;
@@ -89,18 +89,18 @@
 		outline: none;
 	}
 
-	.category-select > .none {
+	.input-select > .none {
 		font-style: italic;
 	}
 
 	.content-textarea {
 		border: 2px solid #ffca64;
 		border-radius: 4px;
-		padding: 6px;
+		padding: 4px 6px;
 		width: 100%;
 		min-height: 15em;
 		font-size: 18px;
-		line-height: 1.8em;
+		line-height: 1.5em;
 		outline: none;
 		resize: none;
 	}
@@ -117,7 +117,7 @@
 	import axios from 'axios';
 	import DOMPurify from 'dompurify';
 	import marked from 'marked';
-	import { onMount } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 
 	import { token } from '../../stores/token';
 
@@ -125,11 +125,17 @@
 	import InputLabel from '../input/InputLabel';
 	import Post from '../post/Post';
 
+	const dispatch = createEventDispatcher();
+
 	let apiToken = null;
 	let categories = [];
 	let tab = 'editor';
+	let accessLevel;
 	let category;
+	let slug = '';
+	let slugError = '';
 	let title = '';
+	let titleError = '';
 	let content = '';
 	let htmlContent = '';
 
@@ -154,6 +160,21 @@
 
 	function generateMarkdown() {
 		htmlContent = DOMPurify.sanitize(marked(content));
+	}
+
+	function validateSlug() {
+		if (!slug) slugError = 'Slug required.';
+		else if (!/^[a-z\d-]+$/.test(slug))
+			slugError =
+				'Only lowercase alphanumeric characters and hyphens are allowed.';
+		else if (/^-+/.test(slug))
+			slugError = 'Slug cannot start with a hyphen.';
+		else if (/-+$/.test(slug)) slugError = 'Slug cannot end with a hyphen.';
+		else if (slug.length < 5)
+			slugError = 'Slug must be at least 5 characters.';
+		else if (slug.length > 256)
+			slugError = 'Slug cannot exceed 256 characters.';
+		else slugError = '';
 	}
 </script>
 
@@ -182,8 +203,17 @@
 	</div>
 	{#if tab === 'editor'}
 		<div class="input-container long-space font serif">
+			<InputLabel label="Access Level">
+				<select class="input-select" bind:value="{accessLevel}">
+					<option value="public" selected>Public</option>
+					<option value="unlisted">Unlisted</option>
+					<option value="private">Private</option>
+				</select>
+			</InputLabel>
+		</div>
+		<div class="input-container font serif">
 			<InputLabel label="Category">
-				<select class="category-select" bind:value="{category}">
+				<select class="input-select" bind:value="{category}">
 					<option class="none" value="">None</option>
 					{#each categories as category}
 						<option>{category.name}</option>
@@ -192,13 +222,36 @@
 			</InputLabel>
 		</div>
 		<div class="input-container font serif">
+			<InputLabel label="Slug">
+				<Input
+					placeholder="Slug"
+					on:value="{() => {
+						slug = slug.trim();
+						validateSlug();
+					}}"
+					bind:value="{slug}"
+					bind:error="{slugError}"
+				/>
+			</InputLabel>
+		</div>
+		<div class="input-container font serif">
 			<InputLabel label="Title">
 				<Input
 					placeholder="Title"
-					regex="{/.*\S.*/}"
-					errmsg="Title required."
-					defaultValue="{title}"
-					on:value="{(event) => (title = event.detail.value || '')}"
+					on:value="{() => {
+						title = title.trim();
+						if (!title) titleError = 'Title required.';
+						else if (title.length > 128) titleError = 'Title cannot exceed 128 characters.';
+						slug = title
+							.replace(/[^a-zA-Z\d-]+/g, '-')
+							.replace(
+								/^-*([a-zA-Z\d][a-zA-Z\d-]*[a-zA-Z\d])-*$/g,
+								'$1'
+							);
+						validateSlug();
+					}}"
+					bind:value="{title}"
+					bind:error="{titleError}"
 				/>
 			</InputLabel>
 		</div>
@@ -216,6 +269,13 @@
 				category="{category}"
 				title="{title}"
 				content="{htmlContent}"
+				on:click="{() => dispatch('post', {
+						slug,
+						accessLevel,
+						category,
+						title,
+						content,
+					})}"
 			/>
 		</div>
 	{/if}
