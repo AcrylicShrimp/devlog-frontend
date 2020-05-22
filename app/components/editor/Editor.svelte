@@ -343,11 +343,9 @@
 					on:value="{() => {
 						validateTitle();
 						slug = title
+							.toLowerCase()
 							.replace(/[^a-zA-Z\d-]+/g, '-')
-							.replace(
-								/^-*([a-zA-Z\d][a-zA-Z\d-]*[a-zA-Z\d])-*$/g,
-								'$1'
-							);
+							.replace(/^-*([a-zA-Z\d][a-zA-Z\d-]*[a-zA-Z\d])-*$/g, '$1');
 						validateSlug();
 					}}"
 					bind:value="{title}"
