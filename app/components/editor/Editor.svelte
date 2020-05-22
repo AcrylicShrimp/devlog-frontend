@@ -104,7 +104,8 @@
 	import autosize from 'autosize';
 	import axios from 'axios';
 	import DOMPurify from 'dompurify';
-	import marked from 'marked';
+	import hljs from 'highlight.js';
+	import { parse } from 'marked';
 	import { createEventDispatcher, onMount } from 'svelte';
 
 	import { token } from '../../stores/token';
@@ -149,11 +150,38 @@
 
 	onMount(() => autosize(document.querySelectorAll('textarea')));
 
-	function generateMarkdown() {
-		htmlContent = DOMPurify.sanitize(marked(content));
+	async function showPreview() {
+		if (locked) return;
+
+		locked = true;
+		await generateMarkdown();
+		locked = false;
+
+		tab = 'preview';
+	}
+
+	async function generateMarkdown() {
+		htmlContent = DOMPurify.sanitize(
+			await new Promise((resolve, reject) =>
+				parse(
+					content,
+					{
+						highlight: (code, lang) =>
+							hljs.highlight(
+								hljs.getLanguage(lang) ? lang : 'plaintext',
+								code
+							).value,
+					},
+					(err, parseResult) =>
+						err ? reject(err) : resolve(parseResult.trim())
+				)
+			)
+		);
 	}
 
 	function validateSlug() {
+		slug = slug.trim();
+
 		if (!slug) slugError = 'Slug required.';
 		else if (!/^[a-z\d-]+$/.test(slug))
 			slugError =
@@ -166,6 +194,14 @@
 		else if (slug.length > 256)
 			slugError = 'Slug cannot exceed 256 characters.';
 		else slugError = '';
+	}
+
+	function validateTitle() {
+		title = title.trim();
+
+		if (!title) titleError = 'Title required.';
+		else if (title.length > 128)
+			titleError = 'Title cannot exceed 128 characters.';
 	}
 
 	function validateContent() {
@@ -181,6 +217,7 @@
 			<button
 				class="menu-tab-button font sans-serif"
 				class:active="{tab === 'editor'}"
+				disabled="{locked}"
 				on:click="{() => (tab = 'editor')}"
 			>
 				Editor
@@ -188,29 +225,56 @@
 			<button
 				class="menu-tab-button font sans-serif"
 				class:active="{tab === 'preview'}"
-				on:click="{() => {
-					generateMarkdown();
-					tab = 'preview';
-				}}"
+				disabled="{locked}"
+				on:click="{() => showPreview()}"
 			>
 				Preview
 			</button>
 		</div>
-		<button class="menu-post font sans-serif">Post</button>
+		<button
+			class="menu-post font sans-serif"
+			disabled="{locked}"
+			on:click="{() => {
+				validateSlug();
+				validateTitle();
+				validateContent();
+				if (slugError || titleError || contentError) {
+					alert('Please fill all forms before proceed.');
+					return;
+				}
+				dispatch('post', {
+					slug,
+					accessLevel,
+					category,
+					title,
+					content,
+				});
+			}}"
+		>
+			Post
+		</button>
 	</div>
 	{#if tab === 'editor'}
-		<div class="input-container long-space font serif">
+		<div class="input-container long-space font sans-serif">
 			<InputLabel label="Access Level">
-				<select class="input-select" bind:value="{accessLevel}">
+				<select
+					class="input-select"
+					disabled="{locked}"
+					bind:value="{accessLevel}"
+				>
 					<option value="public" selected>Public</option>
 					<option value="unlisted">Unlisted</option>
 					<option value="private">Private</option>
 				</select>
 			</InputLabel>
 		</div>
-		<div class="input-container font serif">
+		<div class="input-container font sans-serif">
 			<InputLabel label="Category">
-				<select class="input-select" bind:value="{category}">
+				<select
+					class="input-select"
+					disabled="{locked}"
+					bind:value="{category}"
+				>
 					<option class="none" value="">None</option>
 					{#each categories as category}
 						<option>{category.name}</option>
@@ -218,27 +282,24 @@
 				</select>
 			</InputLabel>
 		</div>
-		<div class="input-container font serif">
+		<div class="input-container font sans-serif">
 			<InputLabel label="Slug">
 				<Input
 					placeholder="Slug"
-					on:value="{() => {
-						slug = slug.trim();
-						validateSlug();
-					}}"
+					disabled="{locked}"
+					on:value="{() => validateSlug()}"
 					bind:value="{slug}"
 					bind:error="{slugError}"
 				/>
 			</InputLabel>
 		</div>
-		<div class="input-container font serif">
+		<div class="input-container font sans-serif">
 			<InputLabel label="Title">
 				<Input
 					placeholder="Title"
+					disabled="{locked}"
 					on:value="{() => {
-						title = title.trim();
-						if (!title) titleError = 'Title required.';
-						else if (title.length > 128) titleError = 'Title cannot exceed 128 characters.';
+						validateTitle();
 						slug = title
 							.replace(/[^a-zA-Z\d-]+/g, '-')
 							.replace(
