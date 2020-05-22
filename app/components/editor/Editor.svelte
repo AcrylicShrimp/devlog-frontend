@@ -93,18 +93,6 @@
 		font-style: italic;
 	}
 
-	.content-textarea {
-		border: 2px solid #ffca64;
-		border-radius: 4px;
-		padding: 4px 6px;
-		width: 100%;
-		min-height: 15em;
-		font-size: 18px;
-		line-height: 1.5em;
-		outline: none;
-		resize: none;
-	}
-
 	.preview-container {
 		margin-top: 80px;
 	}
@@ -123,6 +111,7 @@
 
 	import Input from '../input/Input';
 	import InputLabel from '../input/InputLabel';
+	import InputMulti from '../input/InputMulti';
 	import Post from '../post/Post';
 
 	const dispatch = createEventDispatcher();
@@ -137,7 +126,9 @@
 	let title = '';
 	let titleError = '';
 	let content = '';
+	let contentError = '';
 	let htmlContent = '';
+	let locked = false;
 
 	token.subscribe((token) => (apiToken = token));
 
@@ -175,6 +166,12 @@
 		else if (slug.length > 256)
 			slugError = 'Slug cannot exceed 256 characters.';
 		else slugError = '';
+	}
+
+	function validateContent() {
+		content = content.trim();
+
+		if (!content) contentError = 'Content required.';
 	}
 </script>
 
@@ -257,10 +254,13 @@
 		</div>
 		<div class="input-container font sans-serif">
 			<InputLabel label="Content">
-				<textarea
-					class="content-textarea"
+				<InputMulti
+					placeholder="Content"
+					disabled="{locked}"
+					on:value="{() => validateContent()}"
 					bind:value="{content}"
-				></textarea>
+					bind:error="{contentError}"
+				/>
 			</InputLabel>
 		</div>
 	{:else}
