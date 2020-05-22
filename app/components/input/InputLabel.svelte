@@ -16,7 +16,7 @@
 	export let label;
 </script>
 
-<p class="font serif label">{label}</p>
+<p class="font sans-serif raleway label">{label}</p>
 <div class="container">
 	<slot />
 </div>
