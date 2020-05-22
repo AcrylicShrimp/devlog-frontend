@@ -105,12 +105,13 @@
 	import axios from 'axios';
 	import DOMPurify from 'dompurify';
 	import hljs from 'highlight.js';
-	import { parse } from 'marked';
+	import { parse, Renderer } from 'marked';
 	import { createEventDispatcher, onMount } from 'svelte';
 
 	import { token } from '../../stores/token';
 
 	import Input from '../input/Input';
+	import InputImage from '../input/InputImage';
 	import InputLabel from '../input/InputLabel';
 	import InputMulti from '../input/InputMulti';
 	import Post from '../post/Post';
@@ -129,6 +130,7 @@
 	let content = '';
 	let contentError = '';
 	let htmlContent = '';
+	let images = [];
 	let locked = false;
 
 	token.subscribe((token) => (apiToken = token));
@@ -161,11 +163,50 @@
 	}
 
 	async function generateMarkdown() {
+		const imageData = await Promise.all(
+			images.map(
+				(image) =>
+					new Promise((resolve) => {
+						const reader = new FileReader();
+
+						reader.onload = (event) => resolve(event.target.result);
+						reader.readAsDataURL(image);
+					})
+			)
+		);
+
+		console.log(images.length);
+
+		const renderer = new Renderer();
+		const imageRenderer = new (class extends Renderer {
+			image(href, title, text) {
+				if (href) {
+					const match = href.match(/\$(\d+)$/i);
+
+					if (match) {
+						const index = parseInt(match[1]);
+
+						if (
+							!isNaN(index) &&
+							0 <= index &&
+							index < imageData.length
+						)
+							href = imageData[index];
+
+						console.log(index);
+					}
+				}
+
+				return renderer.image(href, title, text);
+			}
+		})();
+
 		htmlContent = DOMPurify.sanitize(
 			await new Promise((resolve, reject) =>
 				parse(
 					content,
 					{
+						renderer: imageRenderer,
 						highlight: (code, lang) =>
 							hljs.highlight(
 								hljs.getLanguage(lang) ? lang : 'plaintext',
@@ -321,6 +362,16 @@
 					on:value="{() => validateContent()}"
 					bind:value="{content}"
 					bind:error="{contentError}"
+				/>
+			</InputLabel>
+		</div>
+		<div class="input-container font sans-serif">
+			<InputLabel label="Image">
+				<InputImage
+					on:insert="{(event) => (content += `![${event.detail.name
+							.replace(']', '\\]')
+							.replace('\\', '\\\\')}]($${event.detail.index})`)}"
+					bind:images
 				/>
 			</InputLabel>
 		</div>
