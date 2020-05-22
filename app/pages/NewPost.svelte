@@ -1,0 +1,89 @@
+<script>
+	import axios from 'axios';
+
+	import { push } from 'svelte-spa-router';
+
+	import { token } from '../stores/token';
+
+	import Editor from '../components/editor/Editor';
+
+	let posting = false;
+	let apiToken = null;
+
+	token.subscribe((token) => {
+		if (!(apiToken = token)) push('/');
+	});
+
+	async function onPostEditor(event) {
+		if (posting) return;
+
+		posting = true;
+
+		try {
+			await axios.post(
+				'https://api.blog.ashrimp.dev/admin/posts',
+				{
+					slug: event.detail.slug,
+					'access-level': event.detail.accessLevel,
+					category: event.detail.category,
+					title: event.detail.title,
+				},
+				{
+					headers: apiToken && {
+						'Api-Token': apiToken,
+					},
+				}
+			);
+
+			if (event.detail.images.length) {
+				const images = new FormData();
+
+				event.detail.images.forEach((image) =>
+					images.append('images', image)
+				);
+
+				await axios.post(
+					`https://api.blog.ashrimp.dev/admin/posts/${event.detail.slug}/images`,
+					images,
+					{
+						headers: apiToken && {
+							'Api-Token': apiToken,
+						},
+					}
+				);
+			}
+
+			await axios.put(
+				`https://api.blog.ashrimp.dev/admin/posts/${event.detail.slug}/content`,
+				{
+					content: event.detail.content,
+				},
+				{
+					headers: apiToken && {
+						'Api-Token': apiToken,
+					},
+				}
+			);
+
+			push(`/posts/${event.detail.slug}`);
+		} catch (err) {
+			if (
+				err.response &&
+				err.response.status &&
+				err.response.status === 401
+			)
+				token.set(null);
+			else if (
+				err.response &&
+				err.response.status &&
+				err.response.status === 409
+			)
+				alert('The slug is already taken.');
+			else alert('Error occurred.');
+		} finally {
+			posting = false;
+		}
+	}
+</script>
+
+<Editor on:post="{onPostEditor}" />
