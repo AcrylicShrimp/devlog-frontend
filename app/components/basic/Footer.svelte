@@ -90,7 +90,7 @@
 			</button>
 			<a
 				class="footer-text footer-button"
-				href="/editor"
+				href="/new-post"
 				target="_self"
 				use:link
 			>

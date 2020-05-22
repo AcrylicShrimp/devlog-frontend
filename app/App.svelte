@@ -6,9 +6,9 @@
 	import Footer from './components/basic/Footer';
 	import Nav from './components/basic/Nav';
 
-	import Editor from './components/editor/Editor.svelte';
 	import List from './pages/List';
 	import Login from './pages/Login';
+	import NewPost from './pages/NewPost';
 	import NotFound from './pages/NotFound';
 	import Post from './pages/Post';
 
@@ -16,7 +16,7 @@
 
 	const routes = {
 		'/': List,
-		'/editor': Editor,
+		'/new-post': NewPost,
 		'/posts/:slug': Post,
 		'/login': Login,
 		'*': NotFound,
