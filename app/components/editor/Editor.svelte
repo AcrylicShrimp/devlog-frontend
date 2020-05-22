@@ -175,8 +175,6 @@
 			)
 		);
 
-		console.log(images.length);
-
 		const renderer = new Renderer();
 		const imageRenderer = new (class extends Renderer {
 			image(href, title, text) {
@@ -192,8 +190,6 @@
 							index < imageData.length
 						)
 							href = imageData[index];
-
-						console.log(index);
 					}
 				}
 
