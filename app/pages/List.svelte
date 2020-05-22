@@ -18,6 +18,13 @@
 		box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.32);
 	}
 
+	.post-header-container {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		justify-content: space-between;
+	}
+
 	.post-category {
 		padding-left: 12px;
 		font-family: 'Nanum Myeongjo', serif;
@@ -30,25 +37,19 @@
 		visibility: unset;
 	}
 
-	.post-header-container {
-		display: flex;
-		flex-direction: row;
-		align-items: flex-start;
-		justify-content: space-between;
-		margin-top: 10px;
-	}
-
-	.post-title {
-		margin: 0;
-		font-family: 'Nanum Myeongjo', serif;
-		font-size: 24px;
-		color: #404040;
-	}
-
 	.post-date {
 		font-family: 'Nanum Myeongjo', serif;
 		font-size: 16px;
 		color: #727272;
+	}
+
+	.post-title {
+		margin: 0;
+		margin-top: 20px;
+		font-family: 'Nanum Myeongjo', serif;
+		font-size: 24px;
+		font-size: bold;
+		color: #404040;
 	}
 
 	.post-content {
@@ -114,15 +115,18 @@
 				use:link
 			>
 				<article class="post">
-					<span class="post-category" class:exists="{post.category}">
-						{post.category ? post.category.name : ''}
-					</span>
 					<div class="post-header-container">
-						<h1 class="post-title">{post.title}</h1>
+						<span
+							class="post-category"
+							class:exists="{post.category}"
+						>
+							{post.category ? post.category.name : ''}
+						</span>
 						<span class="post-date">
 							{dayjs(post.createdAt).format('YYYY/MM/DD HH:mm')}
 						</span>
 					</div>
+					<h1 class="post-title">{post.title}</h1>
 					<p class="post-content">{post.contentPreview}</p>
 				</article>
 			</a>
