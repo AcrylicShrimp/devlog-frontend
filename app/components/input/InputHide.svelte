@@ -37,7 +37,7 @@
 <div>
 	<input
 		class="input"
-		type="text"
+		type="password"
 		placeholder="{placeholder}"
 		disabled="{disabled}"
 		on:focus="{() => (error = '')}"
