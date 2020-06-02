@@ -106,8 +106,8 @@
 </script>
 
 {#if posts}
-	{#if posts.length}
-		{#each posts as post}
+	{#if posts.posts.length}
+		{#each posts.posts as post}
 			<a
 				class="post-link"
 				href="{`/posts/${post.slug}`}"
