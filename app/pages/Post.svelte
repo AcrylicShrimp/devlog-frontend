@@ -8,27 +8,30 @@
 	}
 
 	.menu-button {
-		border: 1px solid #a5a5a5;
+		border: none;
 		border-radius: 4px;
-		padding: 0;
-		width: 4em;
-		height: 30px;
+		padding: 4px;
+		width: 60px;
 		background-color: transparent;
 		font-size: 18px;
 		color: #a5a5a5;
 		cursor: pointer;
 		outline: none;
-		transition: border 0.2s, color 0.2s;
+		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.16);
+		transition: color 0.2s, box-shadow 0.2s;
+	}
+
+	.menu-button.red {
+		color: #ff8c8c;
 	}
 
 	.menu-button:not(:disabled):hover {
-		border: 1px solid #6a6a6a;
 		color: #6a6a6a;
+		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.16);
 	}
 
-	.menu-button:disabled {
-		border: 1px solid #dedede;
-		color: #dedede;
+	.menu-button.red:not(:disabled):hover {
+		color: #ff2e2e;
 	}
 
 	.menu-button + .menu-button {
@@ -37,6 +40,8 @@
 </style>
 
 <script>
+	import '../font-awesome/css/all.css';
+
 	import axios from 'axios';
 	import { push } from 'svelte-spa-router';
 
@@ -110,10 +115,12 @@
 {#if post}
 	{#if authenticated}
 		<div class="menu-container font sans-serif">
-			<button class="menu-button" on:click="{onClickDelete}">
-				Delete
+			<button class="menu-button red" on:click="{onClickDelete}">
+				<i class="far fa-trash-alt"></i>
 			</button>
-			<button class="menu-button">Edit</button>
+			<button class="menu-button">
+				<i class="far fa-edit"></i>
+			</button>
 		</div>
 	{/if}
 	<Post
