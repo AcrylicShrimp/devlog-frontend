@@ -99,8 +99,6 @@
 </style>
 
 <script>
-	import 'font-awesome/css/font-awesome.css';
-
 	import autosize from 'autosize';
 	import axios from 'axios';
 	import DOMPurify from 'dompurify';
