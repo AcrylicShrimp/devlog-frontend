@@ -19,13 +19,8 @@
 		background-color: #c2c2c2;
 	}
 
-	.label::before {
+	.label > .fa-image {
 		margin-right: 0.5em;
-		content: '\f093';
-		font-family: 'FontAwesome';
-		font-weight: normal;
-		line-height: normal;
-		vertical-align: baseline;
 	}
 
 	.input {
@@ -44,6 +39,8 @@
 </style>
 
 <script>
+	import '../../font-awesome/css/all.css';
+
 	import { createEventDispatcher } from 'svelte';
 	import InputImagePreview from './InputImagePreview';
 
@@ -52,7 +49,10 @@
 	const dispatch = createEventDispatcher();
 </script>
 
-<label for="image-upload" class="label">Drag &amp; drop images here!</label>
+<label for="image-upload" class="label">
+	<i class="far fa-image"></i>
+	Drag &amp; drop images here!
+</label>
 <input
 	id="image-upload"
 	type="file"
