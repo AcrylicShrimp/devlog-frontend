@@ -73,8 +73,8 @@ article a::after {
 	position: relative;
 	top: -0.5em;
 	content: '\f08e';
-	font-family: 'FontAwesome';
-	font-size: 70%;
+	font-family: 'Font Awesome 5 Pro';
+	font-size: 80%;
 	font-weight: normal;
 	line-height: normal;
 	vertical-align: baseline;
