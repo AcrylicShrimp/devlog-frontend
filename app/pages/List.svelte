@@ -21,13 +21,15 @@
 		width: 75px;
 		background-color: transparent;
 		font-size: 26px;
-		outline: none;
+		color: #aeaeae;
 		cursor: pointer;
+		outline: none;
 		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.16);
-		transition: box-shadow 0.2s;
+		transition: color 0.2s, box-shadow 0.2s;
 	}
 
-	.page-button:hover {
+	.page-button:not(:disabled):hover {
+		color: #404040;
 		box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.24);
 	}
 
