@@ -46,12 +46,12 @@
 		transition: box-shadow 0.2s;
 	}
 
-	.post-link + .post-link > .post {
-		margin-top: 18px;
-	}
-
 	.post:hover {
 		box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.32);
+	}
+
+	.post-link + .post-link > .post {
+		margin-top: 18px;
 	}
 
 	.post-header-container {
