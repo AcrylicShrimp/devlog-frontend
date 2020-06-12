@@ -96,6 +96,14 @@
 			>
 				Write a new post
 			</a>
+			<a
+				class="footer-text footer-button"
+				href="/categories"
+				target="_self"
+				use:link
+			>
+				Manage categories
+			</a>
 		{:else}
 			<a
 				class="footer-text footer-button"
