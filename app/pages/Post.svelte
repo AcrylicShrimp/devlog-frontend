@@ -27,7 +27,7 @@
 
 	.menu-button:not(:disabled):hover {
 		color: #6a6a6a;
-		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.16);
+		box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.24);
 	}
 
 	.menu-button.red:not(:disabled):hover {

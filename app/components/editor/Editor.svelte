@@ -47,27 +47,26 @@
 	}
 
 	.menu-post {
-		margin-left: 20px;
-		border: 1px solid #a5a5a5;
+		margin-left: 15px;
+		border: none;
 		border-radius: 4px;
-		padding: 0;
-		width: 4em;
-		height: 30px;
+		padding: 4px;
+		width: 60px;
 		background-color: transparent;
 		font-size: 18px;
 		color: #a5a5a5;
 		cursor: pointer;
 		outline: none;
-		transition: border 0.2s, color 0.2s;
+		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.16);
+		transition: color 0.2s, box-shadow 0.2s;
 	}
 
 	.menu-post:not(:disabled):hover {
-		border: 1px solid #6a6a6a;
 		color: #6a6a6a;
+		box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.24);
 	}
 
 	.menu-post:disabled {
-		border: 1px solid #dedede;
 		color: #dedede;
 	}
 
@@ -287,7 +286,7 @@
 				});
 			}}"
 		>
-			Post
+			<i class="far fa-upload"></i>
 		</button>
 	</div>
 	{#if tab === 'editor'}

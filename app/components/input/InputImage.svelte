@@ -4,19 +4,27 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
+		margin-left: 15px;
+		border: none;
 		border-radius: 4px;
+		padding: 4px;
 		height: 100px;
-		background-color: #d6d6d6;
+		background-color: transparent;
 		font-size: 18px;
-		transition: background-color 0.2s;
-	}
-
-	.label:disabled {
-		background-color: #acacac;
+		color: #a5a5a5;
+		cursor: pointer;
+		outline: none;
+		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.16);
+		transition: color 0.2s, box-shadow 0.2s;
 	}
 
 	.label:not(:disabled):hover {
-		background-color: #c2c2c2;
+		color: #404040;
+		box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.24);
+	}
+
+	.label:disabled {
+		color: #dedede;
 	}
 
 	.label > .fa-image {
@@ -51,7 +59,7 @@
 
 <label for="image-upload" class="label">
 	<i class="far fa-image"></i>
-	Drag &amp; drop images here!
+	Click here to upload image!
 </label>
 <input
 	id="image-upload"
