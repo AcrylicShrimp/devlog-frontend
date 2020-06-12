@@ -90,7 +90,7 @@
 			</button>
 			<a
 				class="footer-text footer-button"
-				href="/new-post"
+				href="/post"
 				target="_self"
 				use:link
 			>

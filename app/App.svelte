@@ -17,8 +17,8 @@
 
 	const routes = {
 		'/': List,
-		'/new-post': NewPost,
 		'/categories': Categories,
+		'/post': NewPost,
 		'/posts/:slug': Post,
 		'/login': Login,
 		'*': NotFound,
