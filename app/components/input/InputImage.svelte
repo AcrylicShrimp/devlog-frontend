@@ -37,7 +37,7 @@
 
 	.container {
 		display: grid;
-		grid-gap: 6px;
+		gap: 6px;
 		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 		align-content: start;
 		align-items: center;
