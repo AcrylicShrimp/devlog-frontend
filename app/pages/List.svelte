@@ -1,4 +1,55 @@
 <style>
+	.category-container {
+		margin-bottom: 40px;
+		text-align: center;
+	}
+
+	.category-button {
+		display: inline-block;
+		margin: 6px;
+		border: none;
+		border-radius: 2px;
+		background-color: transparent;
+		width: 85px;
+		height: 2em;
+		font-size: 14px;
+		color: #aeaeae;
+		cursor: pointer;
+		outline: none;
+		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.16);
+		transition: color 0.2s, box-shadow 0.2s;
+	}
+
+	.category-button:not(:disabled):hover {
+		color: #404040;
+		box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.24);
+	}
+
+	.category-button:disabled {
+		cursor: default;
+		color: #404040;
+	}
+
+	.category-info-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: start;
+		margin-bottom: 20px;
+	}
+
+	.category-info-name {
+		margin: 0;
+		font-size: 27px;
+		font-weight: bold;
+	}
+
+	.category-info-desc {
+		margin: 0;
+		margin-top: 12px;
+		font-size: 15px;
+	}
+
 	.page-button-container {
 		display: flex;
 		flex-direction: row;
@@ -111,20 +162,55 @@
 
 	import Error from './Error';
 
+	let currentCategoryName = undefined;
+	let currentCategory = undefined;
+	let categories = undefined;
 	let posts = undefined;
 	let apiToken = null;
 
 	token.subscribe((token) => {
+		currentCategory = undefined;
+		categories = undefined;
 		posts = undefined;
 		apiToken = token;
+		updateCategoryList();
 		updatePostList();
 	});
+
+	async function updateCategoryList() {
+		try {
+			const result = await axios.get(
+				'https://api.blog.ashrimp.dev/categories',
+				{
+					headers: apiToken && {
+						'Api-Token': apiToken,
+					},
+				}
+			);
+
+			categories = result.data;
+			setCategory(currentCategoryName, false);
+		} catch (err) {
+			currentCategoryName = undefined;
+			currentCategory = undefined;
+			categories = null;
+
+			if (
+				err.response &&
+				err.response.status &&
+				err.response.status === 401
+			)
+				token.set(null);
+		}
+	}
 
 	async function updatePostList(before, after) {
 		let params = {};
 
 		if (before) params = Object.assign(params, { before });
 		if (after) params = Object.assign(params, { after });
+		if (currentCategoryName)
+			params = Object.assign(params, { category: currentCategoryName });
 
 		try {
 			const result = await axios.get(
@@ -149,8 +235,53 @@
 				token.set(null);
 		}
 	}
+
+	async function setCategory(categoryName, updatePost = true) {
+		currentCategoryName = categoryName;
+		currentCategory = undefined;
+
+		for (let index = 0; index < categories.length; ++index)
+			if (currentCategoryName === categories[index].name) {
+				currentCategory = categories[index];
+				break;
+			}
+
+		if (!currentCategory) currentCategoryName = undefined;
+
+		if (updatePost) updatePostList();
+	}
 </script>
 
+{#if categories}
+	<div class="category-container font sans-serif">
+		<button
+			class="category-button"
+			disabled="{!currentCategoryName}"
+			on:click="{() => setCategory(undefined)}"
+		>
+			ALL
+		</button>
+		{#each categories as category}
+			<button
+				class="category-button"
+				disabled="{category.name === currentCategoryName}"
+				on:click="{() => setCategory(category.name)}"
+			>
+				{category.name}
+			</button>
+		{/each}
+	</div>
+{/if}
+{#if currentCategory}
+	<div class="category-info-container">
+		<p class="category-info-name font sans-serif raleway">
+			{currentCategory.name}
+		</p>
+		<p class="category-info-desc font sans-serif">
+			{currentCategory.description}
+		</p>
+	</div>
+{/if}
 {#if posts}
 	{#if posts.posts.length}
 		<div class="page-button-container top">
