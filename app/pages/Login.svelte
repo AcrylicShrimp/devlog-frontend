@@ -45,7 +45,7 @@
 				}
 			);
 
-			sessionStorage.setItem('api-token', result.data);
+			localStorage.setItem('api-token', result.data);
 			token.set(result.data);
 
 			push('/');

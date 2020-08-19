@@ -27,7 +27,7 @@
 	if (!window.location.hash || window.location.hash == '#')
 		history.replaceState(undefined, undefined, '#/');
 
-	token.set(sessionStorage.getItem('api-token') || null);
+	token.set(localStorage.getItem('api-token') || null);
 </script>
 
 <Nav />
