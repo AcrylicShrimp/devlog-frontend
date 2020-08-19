@@ -177,3 +177,6 @@ $RECYCLE.BIN/
 
 # Private deployment script.
 deploy.sh
+
+# SEO-related
+robots.txt
