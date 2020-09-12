@@ -313,7 +313,7 @@
 				</button>
 			{/if}
 		</div>
-		{#each posts.posts as post}
+		{#each posts.posts as post (post.slug)}
 			<a
 				class="post-link"
 				href="{`/posts/${post.slug}`}"
