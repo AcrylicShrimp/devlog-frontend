@@ -133,12 +133,10 @@
 {#if post}
 	{#if authenticated}
 		<div class="menu-container font sans-serif">
-			<button class="menu-button red" on:click="{onClickDelete}">
-				<i class="far fa-trash-alt"></i>
-			</button>
-			<button class="menu-button">
-				<i class="far fa-edit"></i>
-			</button>
+			<button class="menu-button red" on:click="{onClickDelete}"><i
+					class="far fa-trash-alt"
+				></i></button>
+			<button class="menu-button"><i class="far fa-edit"></i></button>
 		</div>
 	{/if}
 	<Post
