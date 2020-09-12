@@ -57,6 +57,9 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Login :: devlog</title>
+</svelte:head>
 <div class="container">
 	<div class="input-container font sans-serif">
 		<InputLabel label="Username">

@@ -154,6 +154,9 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Categories :: devlog</title>
+</svelte:head>
 {#if categories}
 	{#if categories.length}
 		{#each categories as category}

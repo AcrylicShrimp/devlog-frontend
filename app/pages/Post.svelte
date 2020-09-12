@@ -112,6 +112,24 @@
 	}
 </script>
 
+<svelte:head>
+	{#if post}
+		<title>{post.title} :: devlog</title>
+		<meta
+			name="description"
+			content="{JSON.stringify({
+				slug: params.slug,
+				title: post.title,
+				content: post.contentPreview,
+				'access-level': post.accessLevel,
+				'created-at': post.createdAt,
+				'modified-at': post.modifiedAt,
+			})}"
+		/>
+	{:else}
+		<title>Posts :: devlog</title>
+	{/if}
+</svelte:head>
 {#if post}
 	{#if authenticated}
 		<div class="menu-container font sans-serif">

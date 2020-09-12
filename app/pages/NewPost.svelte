@@ -86,4 +86,7 @@
 	}
 </script>
 
+<svelte:head>
+	<title>New post :: devlog</title>
+</svelte:head>
 <Editor on:post="{onPostEditor}" />

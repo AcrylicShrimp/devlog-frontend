@@ -252,6 +252,9 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Posts :: devlog</title>
+</svelte:head>
 {#if categories}
 	<div class="category-container font sans-serif">
 		<button
