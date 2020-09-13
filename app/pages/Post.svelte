@@ -77,8 +77,10 @@
 				err.response &&
 				err.response.status &&
 				err.response.status === 401
-			)
+			) {
 				token.set(null);
+				localStorage.removeItem('api-token');
+			}
 		}
 	})();
 
@@ -103,9 +105,10 @@
 				err.response &&
 				err.response.status &&
 				err.response.status === 401
-			)
+			) {
 				token.set(null);
-			else alert('Error occurred.');
+				localStorage.removeItem('api-token');
+			} else alert('Error occurred.');
 		} finally {
 			deleting = false;
 		}
