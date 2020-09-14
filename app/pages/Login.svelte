@@ -16,8 +16,8 @@
 </style>
 
 <script>
+	import { goto } from '@sveltech/routify';
 	import axios from 'axios';
-	import { push } from 'svelte-spa-router';
 
 	import { token } from '../stores/token';
 
@@ -48,7 +48,7 @@
 			localStorage.setItem('api-token', result.data);
 			token.set(result.data);
 
-			push('/');
+			$goto('/');
 		} catch {
 			alert('Authentication failed.');
 		} finally {

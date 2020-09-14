@@ -1,11 +1,10 @@
 <script>
+	import { goto } from '@sveltech/routify';
 	import axios from 'axios';
 
-	import { push } from 'svelte-spa-router';
+	import { token } from '../../stores/token';
 
-	import { token } from '../stores/token';
-
-	import Editor from '../components/editor/Editor';
+	import Editor from '../../components/editor/Editor';
 
 	let posting = false;
 	let apiToken = null;
@@ -65,7 +64,7 @@
 				}
 			);
 
-			push(`/posts/${event.detail.slug}`);
+			$goto('/posts/:slug', { slug: event.detail.slug });
 		} catch (err) {
 			if (
 				err.response &&

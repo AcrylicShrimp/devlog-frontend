@@ -154,13 +154,13 @@
 <script>
 	import '../font-awesome/css/all.css';
 
+	import { url } from '@sveltech/routify';
 	import axios from 'axios';
 	import dayjs from 'dayjs';
-	import { link } from 'svelte-spa-router';
 
 	import { token } from '../stores/token';
 
-	import Error from './Error';
+	import Error from '../components/basic/Error';
 
 	let currentCategoryName = undefined;
 	let currentCategory = undefined;
@@ -320,9 +320,7 @@
 		{#each posts.posts as post (post.slug)}
 			<a
 				class="post-link"
-				href="{`/posts/${post.slug}`}"
-				target="_self"
-				use:link
+				href="{$url('/posts/:slug', { slug: post.slug })}"
 			>
 				<article class="post">
 					<div class="post-header-container">

@@ -1,5 +1,5 @@
 <script>
-	import Error from './Error';
+	import Error from '../components/basic/Error';
 </script>
 
 <svelte:head>

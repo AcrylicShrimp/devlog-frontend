@@ -40,28 +40,28 @@
 </style>
 
 <script>
-	import '../font-awesome/css/all.css';
+	import '../../font-awesome/css/all.css';
 
+	import { goto } from '@sveltech/routify';
 	import axios from 'axios';
-	import { push } from 'svelte-spa-router';
 
-	import { token } from '../stores/token';
+	import { token } from '../../stores/token';
 
-	import Error from './Error';
-	import Post from '../components/post/Post';
+	import Fallback from '../_fallback';
+	import Post from '../../components/post/Post';
 
 	let post = undefined;
 	let apiToken = null;
 	let authenticated;
 	let deleting = false;
-	export let params = {};
+	export let slug = {};
 
 	token.subscribe((token) => (authenticated = !!(apiToken = token)));
 
 	(async () => {
 		try {
 			const result = await axios.get(
-				`https://api.blog.ashrimp.dev/posts/${params.slug}`,
+				`https://api.blog.ashrimp.dev/posts/${slug}`,
 				{
 					headers: apiToken && {
 						'Api-Token': apiToken,
@@ -91,7 +91,7 @@
 
 		try {
 			await axios.delete(
-				`https://api.blog.ashrimp.dev/admin/posts/${params.slug}`,
+				`https://api.blog.ashrimp.dev/admin/posts/${slug}`,
 				{
 					headers: apiToken && {
 						'Api-Token': apiToken,
@@ -99,7 +99,7 @@
 				}
 			);
 
-			push('/');
+			$goto('/');
 		} catch (err) {
 			if (
 				err.response &&
@@ -121,7 +121,7 @@
 		<meta
 			name="description"
 			content="{JSON.stringify({
-				slug: params.slug,
+				slug: slug,
 				title: post.title,
 				content: post.contentPreview,
 				'access-level': post.accessLevel,
@@ -129,8 +129,22 @@
 				'modified-at': post.modifiedAt,
 			})}"
 		/>
+		<meta property="og:url" content="{window.location.href}" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="{post.title} :: devlog" />
+		<meta property="og:description" content="{post.contentPreview}" />
+		<meta property="twitter:url" content="{window.location.href}" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="{post.title} :: devlog" />
+		<meta name="twitter:description" content="{post.contentPreview}" />
 	{:else}
-		<title>Posts :: devlog</title>
+		<title>Post :: devlog</title>
+		<meta property="og:url" content="{window.location.href}" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Post :: devlog" />
+		<meta property="twitter:url" content="{window.location.href}" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Post :: devlog" />
 	{/if}
 </svelte:head>
 {#if post}
@@ -149,5 +163,5 @@
 		content="{post.htmlContent}"
 	/>
 {:else if post === null}
-	<Error message="Post not found!" />
+	<Fallback message="Post not found!" />
 {/if}

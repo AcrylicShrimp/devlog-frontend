@@ -12,9 +12,9 @@
 </style>
 
 <script>
-	import { link } from 'svelte-spa-router';
+	import { url } from '@sveltech/routify';
 </script>
 
-<a class="logo-link" href="/" target="_self" use:link>
+<a class="logo-link" href="{$url('/')}">
 	<span class="logo-text">devlog</span>
 </a>

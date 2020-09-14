@@ -102,15 +102,15 @@
 </style>
 
 <script>
-	import '../font-awesome/css/all.css';
+	import '../../font-awesome/css/all.css';
 
 	import axios from 'axios';
 
-	import { token } from '../stores/token';
+	import { token } from '../../stores/token';
 
-	import Error from './Error';
-	import Input from '../components/input/Input';
-	import InputLabel from '../components/input/InputLabel';
+	import Error from '../../components/basic/Error';
+	import Input from '../../components/input/Input';
+	import InputLabel from '../../components/input/InputLabel';
 
 	let categories = undefined;
 	let apiToken = null;
