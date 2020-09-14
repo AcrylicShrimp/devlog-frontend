@@ -203,7 +203,7 @@
 				err.response.status &&
 				err.response.status === 401
 			)
-				token.set(null);
+				token.set('');
 		}
 	}
 
@@ -235,7 +235,7 @@
 				err.response.status &&
 				err.response.status === 401
 			)
-				token.set(null);
+				token.set('');
 		}
 	}
 

@@ -67,7 +67,7 @@
 				`https://api.blog.ashrimp.dev/admin/sessions/${apiToken}`
 			);
 
-			token.set(null);
+			token.set('');
 
 			push('/');
 		} catch {

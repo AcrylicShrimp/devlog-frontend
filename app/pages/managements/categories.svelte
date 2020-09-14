@@ -153,7 +153,7 @@
 				err.response.status &&
 				err.response.status === 401
 			)
-				token.set(null);
+				token.set('');
 		}
 	}
 </script>
@@ -215,7 +215,7 @@
 									);
 									updateCategoryList();
 								} catch (err) {
-									if (err.response && err.response.status && err.response.status === 401) token.set(null);
+									if (err.response && err.response.status && err.response.status === 401) token.set('');
 									else alert('Error occurred.');
 								}
 							}}"
@@ -235,7 +235,7 @@
 								category.originName = category.name;
 								category.originDescription = category.description;
 							} catch (err) {
-								if (err.response && err.response.status && err.response.status === 401) token.set(null);
+								if (err.response && err.response.status && err.response.status === 401) token.set('');
 								else alert('Error occurred.');
 							} finally {
 								category.locked = false;
