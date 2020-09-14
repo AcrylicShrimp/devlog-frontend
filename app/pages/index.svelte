@@ -152,8 +152,10 @@
 </style>
 
 <script>
-	import '../font-awesome/css/all.css';
-
+	import {
+		faLongArrowAltLeft,
+		faLongArrowAltRight,
+	} from '@fortawesome/pro-regular-svg-icons';
 	import { url } from '@sveltech/routify';
 	import axios from 'axios';
 	import dayjs from 'dayjs';
@@ -161,6 +163,7 @@
 	import { token } from '../stores/token';
 
 	import Error from '../components/basic/Error';
+	import Fontawesome from '../components/icon/Fontawesome';
 
 	let currentCategoryName = undefined;
 	let currentCategory = undefined;
@@ -297,7 +300,7 @@
 						posts = undefined;
 					}}"
 				>
-					<i class="far fa-long-arrow-alt-left"></i>
+					<Fontawesome icon="{faLongArrowAltLeft}" />
 				</button>
 			{/if}
 			{#if posts.hasBefore}
@@ -309,7 +312,7 @@
 						posts = undefined;
 					}}"
 				>
-					<i class="far fa-long-arrow-alt-right"></i>
+					<Fontawesome icon="{faLongArrowAltRight}" />
 				</button>
 			{/if}
 		</div>
@@ -345,7 +348,7 @@
 						posts = undefined;
 					}}"
 				>
-					<i class="far fa-long-arrow-alt-left"></i>
+					<Fontawesome icon="{faLongArrowAltLeft}" />
 				</button>
 			{/if}
 			{#if posts.hasBefore}
@@ -357,7 +360,7 @@
 						posts = undefined;
 					}}"
 				>
-					<i class="far fa-long-arrow-alt-right"></i>
+					<Fontawesome icon="{faLongArrowAltRight}" />
 				</button>
 			{/if}
 		</div>

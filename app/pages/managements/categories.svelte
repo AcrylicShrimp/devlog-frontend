@@ -102,13 +102,17 @@
 </style>
 
 <script>
-	import '../../font-awesome/css/all.css';
-
+	import {
+		faPlusCircle,
+		faSave,
+		faTrashAlt,
+	} from '@fortawesome/pro-regular-svg-icons';
 	import axios from 'axios';
 
 	import { token } from '../../stores/token';
 
 	import Error from '../../components/basic/Error';
+	import Fontawesome from '../../components/icon/Fontawesome';
 	import Input from '../../components/input/Input';
 	import InputLabel from '../../components/input/InputLabel';
 
@@ -216,7 +220,7 @@
 								}
 							}}"
 						>
-							<i class="far fa-trash-alt"></i>
+							<Fontawesome icon="{faTrashAlt}" />
 						</button>
 					{/if}
 					<button
@@ -238,7 +242,7 @@
 							}
 						}}"
 					>
-						<i class="far fa-save"></i>
+						<Fontawesome icon="{faSave}" />
 					</button>
 				</div>
 			</div>
@@ -263,7 +267,7 @@
 			categories = categories;
 		}}"
 	>
-		<i class="far fa-plus-circle"></i>
+		<Fontawesome icon="{faPlusCircle}" />
 	</button>
 {:else if categories === null}
 	<Error message="Unable to load categories!" />

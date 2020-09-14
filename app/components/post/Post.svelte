@@ -36,8 +36,6 @@
 </style>
 
 <script>
-	import '../../font-awesome/css/all.css';
-
 	import './halflife.css';
 	import './Post.css';
 

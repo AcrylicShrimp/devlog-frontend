@@ -40,14 +40,14 @@
 </style>
 
 <script>
-	import '../../font-awesome/css/all.css';
-
+	import { faEdit, faTrashAlt } from '@fortawesome/pro-regular-svg-icons';
 	import { goto } from '@sveltech/routify';
 	import axios from 'axios';
 
 	import { token } from '../../stores/token';
 
 	import Fallback from '../_fallback';
+	import Fontawesome from '../../components/icon/Fontawesome';
 	import Post from '../../components/post/Post';
 
 	let post = undefined;
@@ -147,10 +147,11 @@
 {#if post}
 	{#if authenticated}
 		<div class="menu-container font sans-serif">
-			<button class="menu-button red" on:click="{onClickDelete}"><i
-					class="far fa-trash-alt"
-				></i></button>
-			<button class="menu-button"><i class="far fa-edit"></i></button>
+			<button
+				class="menu-button red"
+				on:click="{onClickDelete}"
+			><Fontawesome icon="{faTrashAlt}" /></button>
+			<button class="menu-button"><Fontawesome icon="{faEdit}" /></button>
 		</div>
 	{/if}
 	<Post

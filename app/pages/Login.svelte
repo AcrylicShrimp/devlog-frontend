@@ -13,14 +13,35 @@
 		margin-top: 60px;
 		text-align: center;
 	}
+
+	.login-button {
+		border: none;
+		border-radius: 4px;
+		padding: 4px;
+		width: 60px;
+		background-color: transparent;
+		font-size: 18px;
+		color: #a5a5a5;
+		cursor: pointer;
+		outline: none;
+		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.16);
+		transition: color 0.2s, box-shadow 0.2s;
+	}
+
+	.login-button:not(:disabled):hover {
+		color: #6a6a6a;
+		box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.24);
+	}
 </style>
 
 <script>
+	import { faSignIn } from '@fortawesome/pro-regular-svg-icons';
 	import { goto } from '@sveltech/routify';
 	import axios from 'axios';
 
 	import { token } from '../stores/token';
 
+	import Fontawesome from '../components/icon/Fontawesome';
 	import Input from '../components/input/Input';
 	import InputHide from '../components/input/InputHide';
 	import InputLabel from '../components/input/InputLabel';
@@ -92,11 +113,12 @@
 	</div>
 	<div class="button-container">
 		<button
+			class="login-button"
 			type="button"
 			on:click="{onClickButton}"
 			disabled="{!(username && password) || authenticating}"
 		>
-			Login
+			<Fontawesome icon="{faSignIn}" />
 		</button>
 	</div>
 </div>
