@@ -67,7 +67,6 @@
 				`https://api.blog.ashrimp.dev/admin/sessions/${apiToken}`
 			);
 
-			localStorage.removeItem('api-token');
 			token.set(null);
 
 			push('/');

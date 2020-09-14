@@ -148,10 +148,8 @@
 				err.response &&
 				err.response.status &&
 				err.response.status === 401
-			) {
+			)
 				token.set(null);
-				localStorage.removeItem('api-token');
-			}
 		}
 	}
 </script>
@@ -213,10 +211,8 @@
 									);
 									updateCategoryList();
 								} catch (err) {
-									if (err.response && err.response.status && err.response.status === 401) {
-										token.set(null);
-										localStorage.removeItem('api-token');
-									} else alert('Error occurred.');
+									if (err.response && err.response.status && err.response.status === 401) token.set(null);
+									else alert('Error occurred.');
 								}
 							}}"
 						>
@@ -235,10 +231,8 @@
 								category.originName = category.name;
 								category.originDescription = category.description;
 							} catch (err) {
-								if (err.response && err.response.status && err.response.status === 401) {
-									token.set(null);
-									localStorage.removeItem('api-token');
-								} else alert('Error occurred.');
+								if (err.response && err.response.status && err.response.status === 401) token.set(null);
+								else alert('Error occurred.');
 							} finally {
 								category.locked = false;
 							}

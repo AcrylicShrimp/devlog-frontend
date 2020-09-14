@@ -70,10 +70,9 @@
 				err.response &&
 				err.response.status &&
 				err.response.status === 401
-			) {
+			)
 				token.set(null);
-				localStorage.removeItem('api-token');
-			} else if (
+			else if (
 				err.response &&
 				err.response.status &&
 				err.response.status === 409
