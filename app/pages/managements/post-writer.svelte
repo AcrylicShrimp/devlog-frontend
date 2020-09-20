@@ -1,11 +1,10 @@
 <script>
+	import { goto } from '@sveltech/routify';
 	import axios from 'axios';
 
-	import { push } from 'svelte-spa-router';
+	import { token } from '../../stores/token';
 
-	import { token } from '../stores/token';
-
-	import Editor from '../components/editor/Editor';
+	import Editor from '../../components/editor/Editor';
 
 	let posting = false;
 	let apiToken = null;
@@ -65,14 +64,14 @@
 				}
 			);
 
-			push(`/posts/${event.detail.slug}`);
+			$goto('/posts/:slug', { slug: event.detail.slug });
 		} catch (err) {
 			if (
 				err.response &&
 				err.response.status &&
 				err.response.status === 401
 			)
-				token.set(null);
+				token.set('');
 			else if (
 				err.response &&
 				err.response.status &&
@@ -86,4 +85,7 @@
 	}
 </script>
 
+<svelte:head>
+	<title>New post :: devlog</title>
+</svelte:head>
 <Editor on:post="{onPostEditor}" />

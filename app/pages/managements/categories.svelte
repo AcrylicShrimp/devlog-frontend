@@ -102,15 +102,19 @@
 </style>
 
 <script>
-	import '../font-awesome/css/all.css';
-
+	import {
+		faPlusCircle,
+		faSave,
+		faTrashAlt,
+	} from '@fortawesome/pro-regular-svg-icons';
 	import axios from 'axios';
 
-	import { token } from '../stores/token';
+	import { token } from '../../stores/token';
 
-	import Error from './Error';
-	import Input from '../components/input/Input';
-	import InputLabel from '../components/input/InputLabel';
+	import Error from '../../components/basic/Error';
+	import Fontawesome from '../../components/icon/Fontawesome';
+	import Input from '../../components/input/Input';
+	import InputLabel from '../../components/input/InputLabel';
 
 	let categories = undefined;
 	let apiToken = null;
@@ -149,11 +153,14 @@
 				err.response.status &&
 				err.response.status === 401
 			)
-				token.set(null);
+				token.set('');
 		}
 	}
 </script>
 
+<svelte:head>
+	<title>Categories :: devlog</title>
+</svelte:head>
 {#if categories}
 	{#if categories.length}
 		{#each categories as category}
@@ -208,12 +215,12 @@
 									);
 									updateCategoryList();
 								} catch (err) {
-									if (err.response && err.response.status && err.response.status === 401) token.set(null);
+									if (err.response && err.response.status && err.response.status === 401) token.set('');
 									else alert('Error occurred.');
 								}
 							}}"
 						>
-							<i class="far fa-trash-alt"></i>
+							<Fontawesome icon="{faTrashAlt}" />
 						</button>
 					{/if}
 					<button
@@ -228,14 +235,14 @@
 								category.originName = category.name;
 								category.originDescription = category.description;
 							} catch (err) {
-								if (err.response && err.response.status && err.response.status === 401) token.set(null);
+								if (err.response && err.response.status && err.response.status === 401) token.set('');
 								else alert('Error occurred.');
 							} finally {
 								category.locked = false;
 							}
 						}}"
 					>
-						<i class="far fa-save"></i>
+						<Fontawesome icon="{faSave}" />
 					</button>
 				</div>
 			</div>
@@ -260,7 +267,7 @@
 			categories = categories;
 		}}"
 	>
-		<i class="far fa-plus-circle"></i>
+		<Fontawesome icon="{faPlusCircle}" />
 	</button>
 {:else if categories === null}
 	<Error message="Unable to load categories!" />

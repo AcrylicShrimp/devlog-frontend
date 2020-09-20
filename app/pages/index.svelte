@@ -7,25 +7,27 @@
 	.category-button {
 		display: inline-block;
 		margin: 6px;
+		padding: 6px 0;
 		border: none;
 		border-radius: 2px;
 		background-color: transparent;
 		width: 85px;
-		height: 2em;
 		font-size: 14px;
 		color: #aeaeae;
 		cursor: pointer;
 		outline: none;
+		text-align: center;
+		text-decoration: none;
 		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.16);
 		transition: color 0.2s, box-shadow 0.2s;
 	}
 
-	.category-button:not(:disabled):hover {
+	.category-button:not(.disabled):hover {
 		color: #404040;
 		box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.24);
 	}
 
-	.category-button:disabled {
+	.category-button.disabled {
 		cursor: default;
 		color: #404040;
 	}
@@ -75,6 +77,8 @@
 		color: #aeaeae;
 		cursor: pointer;
 		outline: none;
+		text-align: center;
+		text-decoration: none;
 		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.16);
 		transition: color 0.2s, box-shadow 0.2s;
 	}
@@ -152,15 +156,18 @@
 </style>
 
 <script>
-	import '../font-awesome/css/all.css';
-
+	import {
+		faLongArrowAltLeft,
+		faLongArrowAltRight,
+	} from '@fortawesome/pro-regular-svg-icons';
+	import { afterPageLoad, url } from '@sveltech/routify';
 	import axios from 'axios';
 	import dayjs from 'dayjs';
-	import { link } from 'svelte-spa-router';
 
 	import { token } from '../stores/token';
 
-	import Error from './Error';
+	import Error from '../components/basic/Error';
+	import Fontawesome from '../components/icon/Fontawesome';
 
 	let currentCategoryName = undefined;
 	let currentCategory = undefined;
@@ -177,6 +184,12 @@
 		updatePostList();
 	});
 
+	$afterPageLoad(() => {
+		window.scrollTo(0, 0);
+		updateCategoryList();
+		updatePostList();
+	});
+
 	async function updateCategoryList() {
 		try {
 			const result = await axios.get(
@@ -189,7 +202,10 @@
 			);
 
 			categories = result.data;
-			setCategory(currentCategoryName, false);
+			setCategory(
+				new URLSearchParams(window.location.search).get('category'),
+				false
+			);
 		} catch (err) {
 			currentCategoryName = undefined;
 			currentCategory = undefined;
@@ -200,17 +216,21 @@
 				err.response.status &&
 				err.response.status === 401
 			)
-				token.set(null);
+				token.set('');
 		}
 	}
 
-	async function updatePostList(before, after) {
+	async function updatePostList() {
+		const urlParams = new URLSearchParams(window.location.search);
+		const before = urlParams.get('before');
+		const after = urlParams.get('after');
+		const category = urlParams.get('category');
+
 		let params = {};
 
 		if (before) params = Object.assign(params, { before });
 		if (after) params = Object.assign(params, { after });
-		if (currentCategoryName)
-			params = Object.assign(params, { category: currentCategoryName });
+		if (category) params = Object.assign(params, { category });
 
 		try {
 			const result = await axios.get(
@@ -232,7 +252,7 @@
 				err.response.status &&
 				err.response.status === 401
 			)
-				token.set(null);
+				token.set('');
 		}
 	}
 
@@ -252,23 +272,26 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Posts :: devlog</title>
+</svelte:head>
 {#if categories}
 	<div class="category-container font sans-serif">
-		<button
+		<a
 			class="category-button"
-			disabled="{!currentCategoryName}"
-			on:click="{() => setCategory(undefined)}"
+			class:disabled="{!currentCategoryName}"
+			href="{$url('/')}"
 		>
 			ALL
-		</button>
-		{#each categories as category}
-			<button
+		</a>
+		{#each categories as category (category.name)}
+			<a
 				class="category-button"
-				disabled="{category.name === currentCategoryName}"
-				on:click="{() => setCategory(category.name)}"
+				class:disabled="{category.name === currentCategoryName}"
+				href="{$url('/', { category: category.name })}"
 			>
 				{category.name}
-			</button>
+			</a>
 		{/each}
 	</div>
 {/if}
@@ -286,36 +309,28 @@
 	{#if posts.posts.length}
 		<div class="page-button-container top">
 			{#if posts.hasAfter}
-				<button
+				<a
 					class="page-button left"
-					on:click="{() => {
-						window.scrollTo(0, 0);
-						updatePostList(null, posts.posts[0].slug);
-						posts = undefined;
-					}}"
+					href="{$url('/', { after: posts.posts[0].slug })}"
 				>
-					<i class="far fa-long-arrow-alt-left"></i>
-				</button>
+					<Fontawesome icon="{faLongArrowAltLeft}" />
+				</a>
 			{/if}
 			{#if posts.hasBefore}
-				<button
+				<a
 					class="page-button right"
-					on:click="{() => {
-						window.scrollTo(0, 0);
-						updatePostList(posts.posts[posts.posts.length - 1].slug, null);
-						posts = undefined;
-					}}"
+					href="{$url('/', {
+						before: posts.posts[posts.posts.length - 1].slug,
+					})}"
 				>
-					<i class="far fa-long-arrow-alt-right"></i>
-				</button>
+					<Fontawesome icon="{faLongArrowAltRight}" />
+				</a>
 			{/if}
 		</div>
-		{#each posts.posts as post}
+		{#each posts.posts as post (post.slug)}
 			<a
 				class="post-link"
-				href="{`/posts/${post.slug}`}"
-				target="_self"
-				use:link
+				href="{$url('/posts/:slug', { slug: post.slug })}"
 			>
 				<article class="post">
 					<div class="post-header-container">
@@ -336,28 +351,22 @@
 		{/each}
 		<div class="page-button-container bottom">
 			{#if posts.hasAfter}
-				<button
+				<a
 					class="page-button left"
-					on:click="{() => {
-						window.scrollTo(0, 0);
-						updatePostList(null, posts.posts[0].slug);
-						posts = undefined;
-					}}"
+					href="{$url('/', { after: posts.posts[0].slug })}"
 				>
-					<i class="far fa-long-arrow-alt-left"></i>
-				</button>
+					<Fontawesome icon="{faLongArrowAltLeft}" />
+				</a>
 			{/if}
 			{#if posts.hasBefore}
-				<button
+				<a
 					class="page-button right"
-					on:click="{() => {
-						window.scrollTo(0, 0);
-						updatePostList(posts.posts[posts.posts.length - 1].slug, null);
-						posts = undefined;
-					}}"
+					href="{$url('/', {
+						before: posts.posts[posts.posts.length - 1].slug,
+					})}"
 				>
-					<i class="far fa-long-arrow-alt-right"></i>
-				</button>
+					<Fontawesome icon="{faLongArrowAltRight}" />
+				</a>
 			{/if}
 		</div>
 	{:else}

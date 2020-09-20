@@ -69,17 +69,6 @@ article a {
 	text-decoration: none;
 }
 
-article a::after {
-	position: relative;
-	top: -0.5em;
-	content: '\f08e';
-	font-family: 'Font Awesome 5 Pro';
-	font-size: 70%;
-	font-weight: normal;
-	line-height: normal;
-	vertical-align: baseline;
-}
-
 article img {
 	display: block;
 	margin: 25px auto;

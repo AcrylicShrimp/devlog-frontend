@@ -27,7 +27,7 @@
 		color: #dedede;
 	}
 
-	.label > .fa-image {
+	.label.fa-image {
 		margin-right: 0.5em;
 	}
 
@@ -47,9 +47,10 @@
 </style>
 
 <script>
-	import '../../font-awesome/css/all.css';
-
+	import { faImage } from '@fortawesome/pro-regular-svg-icons';
 	import { createEventDispatcher } from 'svelte';
+
+	import Fontawesome from '../icon/Fontawesome';
 	import InputImagePreview from './InputImagePreview';
 
 	export let images = [];
@@ -58,7 +59,7 @@
 </script>
 
 <label for="image-upload" class="label">
-	<i class="far fa-image"></i>
+	<Fontawesome icon="{faImage}" class="label fa-image" />
 	Click here to upload image!
 </label>
 <input

@@ -46,8 +46,8 @@
 </style>
 
 <script>
+	import { url } from '@sveltech/routify';
 	import axios from 'axios';
-	import { link, push } from 'svelte-spa-router';
 
 	import { token } from '../../stores/token';
 
@@ -67,8 +67,7 @@
 				`https://api.blog.ashrimp.dev/admin/sessions/${apiToken}`
 			);
 
-			sessionStorage.removeItem('api-token');
-			token.set(null);
+			token.set('');
 
 			push('/');
 		} catch {
@@ -90,27 +89,18 @@
 			</button>
 			<a
 				class="footer-text footer-button"
-				href="/post"
-				target="_self"
-				use:link
-			>
-				Write a new post
-			</a>
-			<a
-				class="footer-text footer-button"
-				href="/categories"
-				target="_self"
-				use:link
+				href="{$url('/managements/categories')}"
 			>
 				Manage categories
 			</a>
-		{:else}
 			<a
 				class="footer-text footer-button"
-				href="/login"
-				target="_self"
-				use:link
+				href="{$url('/managements/post-writer')}"
 			>
+				Write a new post
+			</a>
+		{:else}
+			<a class="footer-text footer-button" href="{$url('/login')}">
 				Login
 			</a>
 		{/if}

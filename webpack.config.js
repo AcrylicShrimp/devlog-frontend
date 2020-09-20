@@ -32,7 +32,7 @@ const config = {
 				exclude: /node_modules/,
 			},
 			{
-				test: /\.(html|svelte)$/,
+				test: /\.(?:html|svelte)$/,
 				use: [
 					'babel-loader',
 					{
@@ -44,7 +44,7 @@ const config = {
 					},
 				],
 				exclude: [
-					/node_modules[\/\\](?!svelte)/,
+					/node_modules[\/\\](?!svelte|@sveltech)/,
 					/app[\/\\]index\.html$/,
 				],
 			},
@@ -103,7 +103,11 @@ const config = {
 	},
 	output: {
 		path: path.resolve(__dirname, 'dist'),
+		publicPath: '/',
 		filename: '[name].js',
+	},
+	devServer: {
+		historyApiFallback: true,
 	},
 };
 
