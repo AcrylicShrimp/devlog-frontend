@@ -136,9 +136,17 @@
 		color: #727272;
 	}
 
+	.post-body-container {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+
 	.post-title {
 		margin: 0;
 		margin-top: 20px;
+		margin-bottom: 15px;
 		font-family: 'Nanum Myeongjo', serif;
 		font-size: 24px;
 		font-size: bold;
@@ -146,12 +154,24 @@
 	}
 
 	.post-content {
+		flex-basis: auto;
+		flex-grow: 1;
+		flex-shrink: 1;
 		margin: 0;
 		margin-top: 24px;
 		padding-left: 4px;
 		font-family: 'Nanum Gothic', 'Roboto', sans-serif;
 		font-size: 16px;
 		color: #404040;
+	}
+
+	.post-thumbnail {
+		flex-basis: auto;
+		flex-grow: 0;
+		flex-shrink: 0;
+		margin: auto 0;
+		margin-left: 20px;
+		border-radius: 8px;
 	}
 </style>
 
@@ -345,7 +365,17 @@
 						</span>
 					</div>
 					<h1 class="post-title">{post.title}</h1>
-					<p class="post-content">{post.contentPreview}</p>
+					<div class="post-body-container">
+						<p class="post-content">{post.contentPreview}</p>
+						{#if post.thumbnail}
+							<img
+								class="post-thumbnail"
+								width="200"
+								alt="Thumbnail"
+								src="{post.thumbnail.url}"
+							/>
+						{/if}
+					</div>
 				</article>
 			</a>
 		{/each}

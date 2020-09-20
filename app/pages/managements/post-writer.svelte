@@ -50,6 +50,20 @@
 						},
 					}
 				);
+
+				const thumbnail = new FormData();
+
+				thumbnail.append('image', event.detail.images[0]);
+
+				await axios.put(
+					`https://api.blog.ashrimp.dev/admin/posts/${event.detail.slug}/thumbnail`,
+					thumbnail,
+					{
+						headers: apiToken && {
+							'Api-Token': apiToken,
+						},
+					}
+				);
 			}
 
 			await axios.put(
@@ -78,7 +92,7 @@
 				err.response.status === 409
 			)
 				alert('The slug is already taken.');
-			else alert('Error occurred.');
+			else alert(`Error occurred: ${err}`);
 		} finally {
 			posting = false;
 		}
