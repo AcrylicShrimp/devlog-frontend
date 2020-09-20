@@ -19,6 +19,7 @@
 		font-family: 'Raleway', sans-serif;
 		font-size: 16px;
 		color: #dbdbdb;
+		text-decoration: none;
 	}
 
 	.footer-button {
@@ -40,14 +41,18 @@
 		margin-top: 5px;
 	}
 
-	.footer-text:last-child {
+	.footer-text:nth-child(2) {
 		margin-top: auto;
 	}
 </style>
 
 <script>
+	import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+	import { faEnvelope } from '@fortawesome/pro-regular-svg-icons';
 	import { url } from '@sveltech/routify';
 	import axios from 'axios';
+
+	import Fontawesome from './Fontawesome';
 
 	import { token } from '../../stores/token';
 
@@ -104,6 +109,12 @@
 				Login
 			</a>
 		{/if}
+		<a class="footer-text" href="https://twitter.com/AcrylicShrimp">
+			<Fontawesome icon="{faTwitter}" />
+			AcrylicShrimp</a>
+		<a class="footer-text" href="mailto:led789zxpp@naver.com">
+			<Fontawesome icon="{faEnvelope}" />
+			led789zxpp@naver.com</a>
 		<span class="footer-text">
 			&copy; {new Date().getFullYear() === 2020 ? '2020' : `2020-${new Date().getFullYear()}`}
 			AcrylicShrimp All rights reserved.
