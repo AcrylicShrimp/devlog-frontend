@@ -41,7 +41,7 @@
 
 	import { token } from '../stores/token';
 
-	import Fontawesome from '../components/icon/Fontawesome';
+	import Fontawesome from '../components/basic/Fontawesome';
 	import Input from '../components/input/Input';
 	import InputHide from '../components/input/InputHide';
 	import InputLabel from '../components/input/InputLabel';

@@ -167,7 +167,7 @@
 	import { token } from '../stores/token';
 
 	import Error from '../components/basic/Error';
-	import Fontawesome from '../components/icon/Fontawesome';
+	import Fontawesome from '../components/basic/Fontawesome';
 
 	let currentCategoryName = undefined;
 	let currentCategory = undefined;
