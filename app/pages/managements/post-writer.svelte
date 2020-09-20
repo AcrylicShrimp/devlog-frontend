@@ -13,7 +13,7 @@
 		if (!(apiToken = token)) $goto('/');
 	});
 
-	async function onPostEditor(event) {
+	async function onPost(event) {
 		if (posting) return;
 
 		posting = true;
@@ -102,4 +102,4 @@
 <svelte:head>
 	<title>New post :: devlog</title>
 </svelte:head>
-<Editor on:post="{onPostEditor}" />
+<Editor on:post="{onPost}" />
