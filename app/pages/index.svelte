@@ -130,6 +130,12 @@
 		visibility: unset;
 	}
 
+	.post-icon {
+		font-size: 16px;
+		color: #727272;
+		vertical-align: middle;
+	}
+
 	.post-date {
 		font-family: 'Nanum Myeongjo', serif;
 		font-size: 16px;
@@ -177,6 +183,8 @@
 
 <script>
 	import {
+		faLock,
+		faLink,
 		faLongArrowAltLeft,
 		faLongArrowAltRight,
 	} from '@fortawesome/pro-regular-svg-icons';
@@ -360,8 +368,17 @@
 						>
 							{post.category ? post.category.name : ''}
 						</span>
-						<span class="post-date">
-							{dayjs(post.createdAt).format('YYYY/MM/DD HH:mm')}
+						<span>
+							<span class="post-icon">
+								{#if post.accessLevel === 'unlisted'}
+									<Fontawesome icon="{faLink}" />
+								{:else if post.accessLevel === 'private'}
+									<Fontawesome icon="{faLock}" />
+								{/if}
+							</span>
+							<span class="post-date">
+								{dayjs(post.createdAt).format('YYYY/MM/DD HH:mm')}
+							</span>
 						</span>
 					</div>
 					<h1 class="post-title">{post.title}</h1>

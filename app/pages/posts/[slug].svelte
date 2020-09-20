@@ -159,7 +159,8 @@
 		</div>
 	{/if}
 	<Post
-		category="{post.category ? post.category.name : undefined}"
+		accessLevel="{post.accessLevel}"
+		category="{post.category?.name}"
 		created="{post.createdAt}"
 		title="{post.title}"
 		content="{post.htmlContent}"

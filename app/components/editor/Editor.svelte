@@ -171,7 +171,7 @@
 	}
 
 	async function generateMarkdown() {
-		const imageData = post.images
+		const imageData = (post?.images || [])
 			.map((image) => image.url)
 			.concat(
 				await Promise.all(
@@ -391,6 +391,7 @@
 	{:else}
 		<div class="preview-container">
 			<Post
+				accessLevel="{accessLevel}"
 				category="{category}"
 				title="{title}"
 				content="{htmlContent}"

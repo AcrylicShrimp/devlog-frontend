@@ -17,6 +17,12 @@
 		visibility: unset;
 	}
 
+	.post-icon {
+		font-size: 18px;
+		color: #727272;
+		vertical-align: middle;
+	}
+
 	.post-date {
 		font-size: 18px;
 		color: #727272;
@@ -39,8 +45,12 @@
 	import './halflife.css';
 	import './Post.css';
 
+	import { faLock, faLink } from '@fortawesome/pro-regular-svg-icons';
 	import dayjs from 'dayjs';
 
+	import Fontawesome from '../../components/basic/Fontawesome';
+
+	export let accessLevel;
 	export let category;
 	export let created = Date.now();
 	export let title;
@@ -51,7 +61,18 @@
 	<span class="post-category" class:exists="{category}">
 		{category ? category : ''}
 	</span>
-	<span class="post-date">{dayjs(created).format('YYYY/MM/DD HH:mm')}</span>
+	<span>
+		<span class="post-icon">
+			{#if accessLevel === 'unlisted'}
+				<Fontawesome icon="{faLink}" />
+			{:else if accessLevel === 'private'}
+				<Fontawesome icon="{faLock}" />
+			{/if}
+		</span>
+		<span
+			class="post-date"
+		>{dayjs(created).format('YYYY/MM/DD HH:mm')}</span>
+	</span>
 </div>
 <h1 class="post-title font serif">{title}</h1>
 <article class="post-content-container font sans-serif">
