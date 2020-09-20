@@ -10,7 +10,7 @@
 	let apiToken = null;
 
 	token.subscribe((token) => {
-		if (!(apiToken = token)) push('/');
+		if (!(apiToken = token)) $goto('/');
 	});
 
 	async function onPostEditor(event) {
