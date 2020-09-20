@@ -112,7 +112,7 @@
 	import { token } from '../../stores/token';
 
 	import Error from '../../components/basic/Error';
-	import Fontawesome from '../../components/icon/Fontawesome';
+	import Fontawesome from '../../components/basic/Fontawesome';
 	import Input from '../../components/input/Input';
 	import InputLabel from '../../components/input/InputLabel';
 

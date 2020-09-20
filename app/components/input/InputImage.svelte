@@ -50,7 +50,7 @@
 	import { faImage } from '@fortawesome/pro-regular-svg-icons';
 	import { createEventDispatcher } from 'svelte';
 
-	import Fontawesome from '../icon/Fontawesome';
+	import Fontawesome from '../basic/Fontawesome';
 	import InputImagePreview from './InputImagePreview';
 
 	export let images = [];

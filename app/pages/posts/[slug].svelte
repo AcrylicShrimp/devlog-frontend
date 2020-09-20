@@ -47,7 +47,7 @@
 	import { token } from '../../stores/token';
 
 	import Fallback from '../_fallback';
-	import Fontawesome from '../../components/icon/Fontawesome';
+	import Fontawesome from '../../components/basic/Fontawesome';
 	import Post from '../../components/post/Post';
 
 	let post = undefined;
