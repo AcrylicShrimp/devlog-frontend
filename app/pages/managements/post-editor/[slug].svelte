@@ -5,7 +5,6 @@
 	import { token } from '../../../stores/token';
 
 	import Editor from '../../../components/editor/Editor';
-	import { element_is } from 'svelte/internal';
 
 	let post = undefined;
 	let posting = false;
