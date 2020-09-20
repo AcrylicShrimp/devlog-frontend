@@ -98,6 +98,7 @@
 </style>
 
 <script>
+	import { faUpload } from '@fortawesome/pro-regular-svg-icons';
 	import autosize from 'autosize';
 	import axios from 'axios';
 	import DOMPurify from 'dompurify';
@@ -107,6 +108,7 @@
 
 	import { token } from '../../stores/token';
 
+	import Fontawesome from '../basic/Fontawesome';
 	import Input from '../input/Input';
 	import InputImage from '../input/InputImage';
 	import InputLabel from '../input/InputLabel';
@@ -129,6 +131,15 @@
 	let htmlContent = '';
 	let images = [];
 	let locked = false;
+	export let post;
+
+	if (post) {
+		accessLevel = post.accessLevel;
+		category = post.category?.name || '';
+		slug = post.slug;
+		title = post.title;
+		content = post.content;
+	}
 
 	token.subscribe((token) => (apiToken = token));
 
@@ -160,17 +171,22 @@
 	}
 
 	async function generateMarkdown() {
-		const imageData = await Promise.all(
-			images.map(
-				(image) =>
-					new Promise((resolve) => {
-						const reader = new FileReader();
+		const imageData = post.images
+			.map((image) => image.url)
+			.concat(
+				await Promise.all(
+					images.map(
+						(image) =>
+							new Promise((resolve) => {
+								const reader = new FileReader();
 
-						reader.onload = (event) => resolve(event.target.result);
-						reader.readAsDataURL(image);
-					})
-			)
-		);
+								reader.onload = (event) =>
+									resolve(event.target.result);
+								reader.readAsDataURL(image);
+							})
+					)
+				)
+			);
 
 		const renderer = new Renderer();
 		const imageRenderer = new (class extends Renderer {
@@ -286,7 +302,7 @@
 				});
 			}}"
 		>
-			<i class="far fa-upload"></i>
+			<Fontawesome icon="{faUpload}" />
 		</button>
 	</div>
 	{#if tab === 'editor'}
@@ -360,7 +376,12 @@
 		<div class="input-container font sans-serif">
 			<InputLabel label="Image">
 				<InputImage
+					uploadedImages="{post?.images || []}"
+					uploadedImageCount="{post?.imageCount || 0}"
 					on:insert="{(event) => (content += `![${event.detail.name
+							.replace(']', '\\]')
+							.replace('\\', '\\\\')}]($${event.detail.index})`)}"
+					on:insertUploaded="{(event) => (content += `![${event.detail.name
 							.replace(']', '\\]')
 							.replace('\\', '\\\\')}]($${event.detail.index})`)}"
 					bind:images

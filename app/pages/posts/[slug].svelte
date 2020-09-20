@@ -17,6 +17,7 @@
 		color: #a5a5a5;
 		cursor: pointer;
 		outline: none;
+		text-align: center;
 		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.16);
 		transition: color 0.2s, box-shadow 0.2s;
 	}
@@ -41,7 +42,7 @@
 
 <script>
 	import { faEdit, faTrashAlt } from '@fortawesome/pro-regular-svg-icons';
-	import { goto } from '@sveltech/routify';
+	import { goto, url } from '@sveltech/routify';
 	import axios from 'axios';
 
 	import { token } from '../../stores/token';
@@ -54,7 +55,7 @@
 	let apiToken = null;
 	let authenticated;
 	let deleting = false;
-	export let slug = {};
+	export let slug;
 
 	token.subscribe((token) => (authenticated = !!(apiToken = token)));
 
@@ -151,7 +152,10 @@
 				class="menu-button red"
 				on:click="{onClickDelete}"
 			><Fontawesome icon="{faTrashAlt}" /></button>
-			<button class="menu-button"><Fontawesome icon="{faEdit}" /></button>
+			<a
+				class="menu-button"
+				href="{$url('/managements/post-editor/:slug', { slug })}"
+			><Fontawesome icon="{faEdit}" /></a>
 		</div>
 	{/if}
 	<Post

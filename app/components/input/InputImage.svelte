@@ -52,8 +52,11 @@
 
 	import Fontawesome from '../basic/Fontawesome';
 	import InputImagePreview from './InputImagePreview';
+	import InputUploadedImagePreview from './InputUploadedImagePreview';
 
 	export let images = [];
+	export let uploadedImages = [];
+	export let uploadedImageCount = 0;
 
 	const dispatch = createEventDispatcher();
 </script>
@@ -72,7 +75,7 @@
 			.call(event.target.files)
 			.forEach((image, index) =>
 				dispatch('insert', {
-					index: index + images.length,
+					index: index + images.length + uploadedImageCount,
 					name: image.name,
 				})
 			);
@@ -80,11 +83,23 @@
 	}}"
 />
 <div class="container">
-	{#each images as image, index}
-		<InputImagePreview
+	{#each uploadedImages as image, index (index)}
+		<InputUploadedImagePreview
 			index="{index}"
 			image="{image}"
-			on:click="{() => dispatch('insert', { index, name: image.name })}"
+			on:click="{() => dispatch('insertUploaded', {
+					index,
+					name: index.toString(),
+				})}"
+		/>
+	{/each}
+	{#each images as image, index (index)}
+		<InputImagePreview
+			image="{image}"
+			on:click="{() => dispatch('insert', {
+					index: uploadedImageCount + index,
+					name: image.name,
+				})}"
 		/>
 	{/each}
 </div>
