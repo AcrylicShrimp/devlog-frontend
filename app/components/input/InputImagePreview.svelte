@@ -14,7 +14,7 @@
 </style>
 
 <script>
-	import { onMount, afterUpdate, createEventDispatcher } from 'svelte';
+	import { afterUpdate, createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 
