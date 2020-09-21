@@ -66,6 +66,22 @@
 				}
 			);
 
+			if (event.detail.thumbnail) {
+				const thumbnail = new FormData();
+
+				thumbnail.append('image', event.detail.thumbnail);
+
+				await axios.put(
+					`https://api.blog.ashrimp.dev/admin/posts/${event.detail.slug}/thumbnail`,
+					thumbnail,
+					{
+						headers: apiToken && {
+							'Api-Token': apiToken,
+						},
+					}
+				);
+			}
+
 			if (event.detail.images.length) {
 				const images = new FormData();
 
@@ -82,22 +98,6 @@
 						},
 					}
 				);
-
-				if (!post.imageCount) {
-					const thumbnail = new FormData();
-
-					thumbnail.append('image', event.detail.images[0]);
-
-					await axios.put(
-						`https://api.blog.ashrimp.dev/admin/posts/${event.detail.slug}/thumbnail`,
-						thumbnail,
-						{
-							headers: apiToken && {
-								'Api-Token': apiToken,
-							},
-						}
-					);
-				}
 			}
 
 			await axios.put(

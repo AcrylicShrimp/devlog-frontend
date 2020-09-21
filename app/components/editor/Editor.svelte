@@ -113,6 +113,7 @@
 	import InputImage from '../input/InputImage';
 	import InputLabel from '../input/InputLabel';
 	import InputMulti from '../input/InputMulti';
+	import InputThumbnail from '../input/InputThumbnail';
 	import Post from '../post/Post';
 
 	const dispatch = createEventDispatcher();
@@ -129,6 +130,7 @@
 	let content = '';
 	let contentError = '';
 	let htmlContent = '';
+	let thumbnail = null;
 	let images = [];
 	let locked = false;
 	export let post;
@@ -298,6 +300,7 @@
 					category,
 					title,
 					content,
+					thumbnail,
 					images,
 				});
 			}}"
@@ -371,6 +374,11 @@
 					bind:value="{content}"
 					bind:error="{contentError}"
 				/>
+			</InputLabel>
+		</div>
+		<div class="input-container font sans-serif">
+			<InputLabel label="Thumbnail">
+				<InputThumbnail bind:thumbnail />
 			</InputLabel>
 		</div>
 		<div class="input-container font sans-serif">
