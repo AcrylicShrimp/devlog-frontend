@@ -12,7 +12,7 @@
 		margin-right: auto;
 		padding: 15px 12px;
 		max-width: 860px;
-		min-height: 150px;
+		min-height: 200px;
 	}
 
 	.footer-text {
@@ -20,6 +20,10 @@
 		font-size: 16px;
 		color: #dbdbdb;
 		text-decoration: none;
+	}
+
+	.footer-spacer {
+		margin-top: auto;
 	}
 
 	.footer-button {
@@ -39,10 +43,6 @@
 
 	.footer-button + .footer-button {
 		margin-top: 5px;
-	}
-
-	.footer-text:nth-child(2) {
-		margin-top: auto;
 	}
 </style>
 
@@ -109,6 +109,7 @@
 				Login
 			</a>
 		{/if}
+		<div class="footer-spacer"></div>
 		<a class="footer-text" href="https://twitter.com/AcrylicShrimp">
 			<Fontawesome icon="{faTwitter}" />
 			AcrylicShrimp</a>
