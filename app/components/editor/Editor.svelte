@@ -101,9 +101,6 @@
 	import { faUpload } from '@fortawesome/pro-regular-svg-icons';
 	import autosize from 'autosize';
 	import axios from 'axios';
-	import DOMPurify from 'dompurify';
-	import hljs from 'highlight.js';
-	import { parse, Renderer } from 'marked';
 	import { createEventDispatcher, onMount } from 'svelte';
 
 	import { token } from '../../stores/token';
@@ -190,6 +187,8 @@
 				)
 			);
 
+		const { parse, Renderer } = await import('marked');
+
 		const renderer = new Renderer();
 		const imageRenderer = new (class extends Renderer {
 			image(href, title, text) {
@@ -211,6 +210,9 @@
 				return renderer.image(href, title, text);
 			}
 		})();
+
+		const hljs = await import('highlight.js');
+		const DOMPurify = await import('dompurify');
 
 		htmlContent = DOMPurify.sanitize(
 			await new Promise((resolve, reject) =>

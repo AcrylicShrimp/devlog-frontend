@@ -105,6 +105,7 @@ const config = {
 		path: path.resolve(__dirname, 'dist'),
 		publicPath: '/',
 		filename: '[name].js',
+		chunkFilename: 'chunk-[name].js',
 	},
 	devServer: {
 		historyApiFallback: true,
