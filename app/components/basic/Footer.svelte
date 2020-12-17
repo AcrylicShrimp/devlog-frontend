@@ -95,29 +95,44 @@
 			<a
 				class="footer-text footer-button"
 				href="{$url('/managements/categories')}"
+				target="_self"
 			>
 				Manage categories
 			</a>
 			<a
 				class="footer-text footer-button"
 				href="{$url('/managements/post-writer')}"
+				target="_self"
 			>
 				Write a new post
 			</a>
 		{:else}
-			<a class="footer-text footer-button" href="{$url('/login')}">
+			<a
+				class="footer-text footer-button"
+				href="{$url('/login')}"
+				target="_self"
+			>
 				Login
 			</a>
 		{/if}
 		<div class="footer-spacer"></div>
-		<a class="footer-text" href="https://twitter.com/AcrylicShrimp">
+		<a
+			class="footer-text"
+			href="https://twitter.com/AcrylicShrimp"
+			target="_self"
+		>
 			<Fontawesome icon="{faTwitter}" />
 			AcrylicShrimp</a>
-		<a class="footer-text" href="mailto:led789zxpp@naver.com">
+		<a
+			class="footer-text"
+			href="mailto:led789zxpp@naver.com"
+			target="_self"
+		>
 			<Fontawesome icon="{faEnvelope}" />
 			led789zxpp@naver.com</a>
 		<span class="footer-text">
-			&copy; {new Date().getFullYear() === 2020 ? '2020' : `2020-${new Date().getFullYear()}`}
+			&copy;
+			{new Date().getFullYear() === 2020 ? '2020' : `2020-${new Date().getFullYear()}`}
 			AcrylicShrimp All rights reserved.
 		</span>
 	</div>

@@ -155,6 +155,7 @@
 			<a
 				class="menu-button"
 				href="{$url('/managements/post-editor/:slug', { slug })}"
+				target="_self"
 			><Fontawesome icon="{faEdit}" /></a>
 		</div>
 	{/if}
