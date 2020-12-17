@@ -107,6 +107,7 @@
 		faSave,
 		faTrashAlt,
 	} from '@fortawesome/pro-regular-svg-icons';
+	import { ready } from '@sveltech/routify';
 	import axios from 'axios';
 
 	import { token } from '../../stores/token';
@@ -122,8 +123,9 @@
 	token.subscribe((token) => {
 		categories = undefined;
 		apiToken = token;
-		updateCategoryList();
 	});
+
+	updateCategoryList().finally($ready);
 
 	async function updateCategoryList() {
 		try {

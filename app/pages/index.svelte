@@ -210,7 +210,7 @@
 		apiToken = token;
 	});
 
-	Promise.all([updateCategoryList(), updatePostList()]).then($ready);
+	Promise.all([updateCategoryList(), updatePostList()]).finally($ready);
 
 	$afterPageLoad(() => {
 		window.scrollTo(0, 0);

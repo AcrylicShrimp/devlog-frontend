@@ -42,7 +42,7 @@
 
 <script>
 	import { faEdit, faTrashAlt } from '@fortawesome/pro-regular-svg-icons';
-	import { goto, url } from '@sveltech/routify';
+	import { goto, ready, url } from '@sveltech/routify';
 	import axios from 'axios';
 
 	import { token } from '../../stores/token';
@@ -81,7 +81,7 @@
 			)
 				token.set('');
 		}
-	})();
+	})().finally($ready);
 
 	async function onClickDelete() {
 		if (deleting) return;

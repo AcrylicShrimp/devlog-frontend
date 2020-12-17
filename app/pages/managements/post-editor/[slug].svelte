@@ -1,5 +1,5 @@
 <script>
-	import { afterPageLoad, goto } from '@sveltech/routify';
+	import { afterPageLoad, ready, goto } from '@sveltech/routify';
 	import axios from 'axios';
 
 	import { token } from '../../../stores/token';
@@ -13,13 +13,9 @@
 
 	token.subscribe((token) => {
 		if (!(apiToken = token)) $goto('/');
-		else updatePost();
 	});
 
-	$afterPageLoad(() => {
-		window.scrollTo(0, 0);
-		updatePost();
-	});
+	updatePost().finally($ready);
 
 	async function updatePost() {
 		try {
