@@ -188,7 +188,7 @@
 		faLongArrowAltLeft,
 		faLongArrowAltRight,
 	} from '@fortawesome/pro-regular-svg-icons';
-	import { afterPageLoad, url } from '@sveltech/routify';
+	import { afterPageLoad, ready, url } from '@sveltech/routify';
 	import axios from 'axios';
 	import dayjs from 'dayjs';
 
@@ -208,9 +208,9 @@
 		categories = undefined;
 		posts = undefined;
 		apiToken = token;
-		updateCategoryList();
-		updatePostList();
 	});
+
+	Promise.all([updateCategoryList(), updatePostList()]).then($ready);
 
 	$afterPageLoad(() => {
 		window.scrollTo(0, 0);
