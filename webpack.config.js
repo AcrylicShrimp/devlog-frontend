@@ -38,6 +38,7 @@ const config = {
 					{
 						loader: 'svelte-loader',
 						options: {
+							hydratable: true,
 							emitCss: true,
 							hotReload: !production,
 						},
