@@ -127,22 +127,44 @@
 				'modified-at': post.modifiedAt,
 			})}"
 		/>
+		<meta property="og:title" content="{post.title}" />
+		<meta property="og:type" content="article" />
 		<meta property="og:url" content="{window.location.href}" />
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content="{post.title} :: devlog" />
 		<meta property="og:description" content="{post.contentPreview}" />
-		<meta property="twitter:url" content="{window.location.href}" />
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content="{post.title} :: devlog" />
-		<meta name="twitter:description" content="{post.contentPreview}" />
+		<meta property="article:published_time" content="{post.createdAt}" />
+		<meta property="article:modified_time" content="{post.modifiedAt}" />
+		<meta property="article:author" content="{post.modifiedAt}" />
+		{#if post.category}
+			<meta property="article:section" content="{post.category.name}" />
+		{/if}
+		<meta property="profile:username" content="AcrylicShrimp" />
+		<meta name="twitter:site" content="@AcrylicShrimp" />
+		<meta name="twitter:creator" content="@AcrylicShrimp" />
+		{#if post.thumbnail}
+			<meta property="og:image" content="{post.thumbnail.url}" />
+			<meta property="og:image:url" content="{post.thumbnail.url}" />
+			<meta
+				property="og:image:secure_url"
+				content="{post.thumbnail.url}"
+			/>
+			<meta property="og:image:alt" content="preview" />
+			<meta property="og:image:width" content="{post.thumbnail.width}" />
+			<meta
+				property="og:image:height"
+				content="{post.thumbnail.height}"
+			/>
+			<meta name="twitter:card" content="summary_large_image" />
+		{:else}
+			<meta name="twitter:card" content="summary" />
+		{/if}
 	{:else}
 		<title>Post :: devlog</title>
-		<meta property="og:url" content="{window.location.href}" />
+		<meta property="og:title" content="Post" />
 		<meta property="og:type" content="website" />
-		<meta property="og:title" content="Post :: devlog" />
-		<meta property="twitter:url" content="{window.location.href}" />
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content="Post :: devlog" />
+		<meta property="og:url" content="{window.location.href}" />
+		<meta property="profile:username" content="AcrylicShrimp" />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content="Post" />
 	{/if}
 </svelte:head>
 {#if post}

@@ -302,6 +302,12 @@
 
 <svelte:head>
 	<title>Posts :: devlog</title>
+	<meta property="og:title" content="devlog" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="{window.location.href}" />
+	<meta property="profile:username" content="AcrylicShrimp" />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content="devlog" />
 </svelte:head>
 {#if categories}
 	<div class="category-container font sans-serif">
