@@ -1,6 +1,6 @@
 {
 	"name": "devlog-frontend",
-	"version": "2.4.1",
+	"version": "2.5.0",
 	"description": "A minimal devlog service.",
 	"scripts": {
 		"run:dev": "routify -c run:dev-server",
