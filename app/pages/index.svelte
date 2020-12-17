@@ -309,7 +309,6 @@
 			class="category-button"
 			class:disabled="{!currentCategoryName}"
 			href="{$url('/')}"
-			target="_self"
 		>
 			ALL
 		</a>
@@ -318,7 +317,6 @@
 				class="category-button"
 				class:disabled="{category.name === currentCategoryName}"
 				href="{$url('/', { category: category.name })}"
-				target="_self"
 			>
 				{category.name}
 			</a>
@@ -342,7 +340,6 @@
 				<a
 					class="page-button left"
 					href="{$url('/', { after: posts.posts[0].slug })}"
-					target="_self"
 				>
 					<Fontawesome icon="{faLongArrowAltLeft}" />
 				</a>
@@ -353,7 +350,6 @@
 					href="{$url('/', {
 						before: posts.posts[posts.posts.length - 1].slug,
 					})}"
-					target="_self"
 				>
 					<Fontawesome icon="{faLongArrowAltRight}" />
 				</a>
@@ -363,7 +359,6 @@
 			<a
 				class="post-link"
 				href="{$url('/posts/:slug', { slug: post.slug })}"
-				target="_self"
 			>
 				<article class="post">
 					<div class="post-header-container">
@@ -406,7 +401,6 @@
 				<a
 					class="page-button left"
 					href="{$url('/', { after: posts.posts[0].slug })}"
-					target="_self"
 				>
 					<Fontawesome icon="{faLongArrowAltLeft}" />
 				</a>
@@ -417,7 +411,6 @@
 					href="{$url('/', {
 						before: posts.posts[posts.posts.length - 1].slug,
 					})}"
-					target="_self"
 				>
 					<Fontawesome icon="{faLongArrowAltRight}" />
 				</a>

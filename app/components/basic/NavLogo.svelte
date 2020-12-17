@@ -15,6 +15,6 @@
 	import { url } from '@sveltech/routify';
 </script>
 
-<a class="logo-link" href="{$url('/')}" target="_self">
+<a class="logo-link" href="{$url('/')}">
 	<span class="logo-text">devlog</span>
 </a>
