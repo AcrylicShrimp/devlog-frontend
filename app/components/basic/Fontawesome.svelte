@@ -4,6 +4,7 @@
 		height: 1em;
 		overflow: visible;
 		display: inline-block;
+		vertical-align: bottom;
 	}
 </style>
 

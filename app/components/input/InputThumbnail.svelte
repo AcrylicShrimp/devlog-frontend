@@ -27,7 +27,7 @@
 		color: #dedede;
 	}
 
-	.label.fa-image {
+	.fa-image {
 		margin-right: 0.5em;
 	}
 
@@ -55,10 +55,9 @@
 	export let thumbnail;
 </script>
 
-<label for="thumbnail-upload" class="label">
-	<Fontawesome icon="{faImage}" class="label fa-image" />
-	Click here to upload thumbnail!
-</label>
+<label for="thumbnail-upload" class="label"><span class="fa-image"><Fontawesome
+			icon="{faImage}"
+		/></span>Click here to upload thumbnail!</label>
 <input
 	id="thumbnail-upload"
 	type="file"

@@ -27,7 +27,7 @@
 		color: #dedede;
 	}
 
-	.label.fa-image {
+	.fa-image {
 		margin-right: 0.5em;
 	}
 
@@ -61,9 +61,9 @@
 	const dispatch = createEventDispatcher();
 </script>
 
-<label for="image-upload" class="label">
-	<Fontawesome icon="{faImage}" class="label fa-image" />
-	Click here to upload image!
+<label for="image-upload" class="label"><span class="fa-image"><Fontawesome
+			icon="{faImage}"
+		/></span>Click here to upload image!
 </label>
 <input
 	id="image-upload"
