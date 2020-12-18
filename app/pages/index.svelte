@@ -302,9 +302,11 @@
 
 <svelte:head>
 	<title>Posts :: devlog</title>
+	<meta name="description" content="AcrylicShrimp's Blog" />
 	<meta property="og:title" content="devlog" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="{window.location.href}" />
+	<meta property="og:description" content="AcrylicShrimp's Blog" />
 	<meta property="profile:username" content="AcrylicShrimp" />
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:title" content="devlog" />
