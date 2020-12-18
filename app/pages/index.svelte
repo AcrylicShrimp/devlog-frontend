@@ -347,7 +347,7 @@
 			{#if posts.hasAfter}
 				<a
 					class="page-button left"
-					href="{$url('/', { after: posts.posts[0].slug })}"
+					href="{$url('/', Object.assign({ after: posts.posts[0].slug }, currentCategoryName ? { category: currentCategoryName } : {}))}"
 				>
 					<Fontawesome icon="{faLongArrowAltLeft}" />
 				</a>
@@ -355,9 +355,7 @@
 			{#if posts.hasBefore}
 				<a
 					class="page-button right"
-					href="{$url('/', {
-						before: posts.posts[posts.posts.length - 1].slug,
-					})}"
+					href="{$url('/', Object.assign({ before: posts.posts[posts.posts.length - 1].slug }, currentCategoryName ? { category: currentCategoryName } : {}))}"
 				>
 					<Fontawesome icon="{faLongArrowAltRight}" />
 				</a>
@@ -408,7 +406,7 @@
 			{#if posts.hasAfter}
 				<a
 					class="page-button left"
-					href="{$url('/', { after: posts.posts[0].slug })}"
+					href="{$url('/', Object.assign({ after: posts.posts[0].slug }, currentCategoryName ? { category: currentCategoryName } : {}))}"
 				>
 					<Fontawesome icon="{faLongArrowAltLeft}" />
 				</a>
@@ -416,9 +414,7 @@
 			{#if posts.hasBefore}
 				<a
 					class="page-button right"
-					href="{$url('/', {
-						before: posts.posts[posts.posts.length - 1].slug,
-					})}"
+					href="{$url('/', Object.assign({ before: posts.posts[posts.posts.length - 1].slug }, currentCategoryName ? { category: currentCategoryName } : {}))}"
 				>
 					<Fontawesome icon="{faLongArrowAltRight}" />
 				</a>
