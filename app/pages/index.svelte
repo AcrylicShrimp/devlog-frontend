@@ -4,6 +4,10 @@
 		text-align: center;
 	}
 
+	.category-container.all {
+		margin-bottom: 12px;
+	}
+
 	.category-button {
 		display: inline-block;
 		margin: 6px;
@@ -311,15 +315,17 @@
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:title" content="devlog" />
 </svelte:head>
+<div class="category-container all font sans-serif">
+	<a
+		class="category-button"
+		class:disabled="{!currentCategoryName}"
+		href="{$url('/')}"
+	>
+		ALL
+	</a>
+</div>
 {#if categories}
 	<div class="category-container font sans-serif">
-		<a
-			class="category-button"
-			class:disabled="{!currentCategoryName}"
-			href="{$url('/')}"
-		>
-			ALL
-		</a>
 		{#each categories as category (category.name)}
 			<a
 				class="category-button"
