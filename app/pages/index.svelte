@@ -331,16 +331,19 @@
 		{/each}
 	</div>
 {/if}
-{#if currentCategory}
-	<div class="category-info-container">
+<div class="category-info-container">
+	{#if currentCategory}
 		<p class="category-info-name font sans-serif raleway">
 			{currentCategory.name}
 		</p>
 		<p class="category-info-desc font sans-serif">
 			{currentCategory.description}
 		</p>
-	</div>
-{/if}
+	{:else}
+		<p class="category-info-name font sans-serif raleway">welcome!</p>
+		<p class="category-info-desc font sans-serif">AcrylicShrimp's Blog</p>
+	{/if}
+</div>
 {#if posts}
 	{#if posts.posts.length}
 		<div class="page-button-container top">
