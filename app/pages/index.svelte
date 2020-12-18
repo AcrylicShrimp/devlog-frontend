@@ -1,4 +1,16 @@
 <style>
+	.search-container {
+		display: flex;
+		flex-direction: row;
+		align-items: stretch;
+		justify-content: stretch;
+		margin-bottom: 30px;
+	}
+
+	.search-button {
+		margin-left: 0.5em;
+	}
+
 	.category-container {
 		margin-bottom: 40px;
 		text-align: center;
@@ -192,7 +204,7 @@
 		faLongArrowAltLeft,
 		faLongArrowAltRight,
 	} from '@fortawesome/pro-regular-svg-icons';
-	import { afterPageLoad, ready, url } from '@sveltech/routify';
+	import { afterPageLoad, goto, ready, url } from '@sveltech/routify';
 	import axios from 'axios';
 	import dayjs from 'dayjs';
 
@@ -200,7 +212,10 @@
 
 	import Error from '../components/basic/Error';
 	import Fontawesome from '../components/basic/Fontawesome';
+	import SearchButton from '../components/button/SearchButton';
+	import SearchInput from '../components/input/SearchInput';
 
+	let currentQuery = undefined;
 	let currentCategoryName = undefined;
 	let currentCategory = undefined;
 	let categories = undefined;
@@ -208,6 +223,7 @@
 	let apiToken = null;
 
 	token.subscribe((token) => {
+		currentQuery = undefined;
 		currentCategory = undefined;
 		categories = undefined;
 		posts = undefined;
@@ -239,6 +255,7 @@
 				false
 			);
 		} catch (err) {
+			currentQuery = undefined;
 			currentCategoryName = undefined;
 			currentCategory = undefined;
 			categories = null;
@@ -254,15 +271,21 @@
 
 	async function updatePostList() {
 		const urlParams = new URLSearchParams(window.location.search);
+		const query = urlParams.get('query');
 		const before = urlParams.get('before');
 		const after = urlParams.get('after');
 		const category = urlParams.get('category');
 
 		let params = {};
 
-		if (before) params = Object.assign(params, { before });
-		if (after) params = Object.assign(params, { after });
-		if (category) params = Object.assign(params, { category });
+		if (query) params = { query };
+		else {
+			if (before) params = Object.assign(params, { before });
+			if (after) params = Object.assign(params, { after });
+			if (category) params = Object.assign(params, { category });
+		}
+
+		currentQuery = query ?? '';
 
 		try {
 			const result = await axios.get(
@@ -315,6 +338,15 @@
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:title" content="devlog" />
 </svelte:head>
+<div class="search-container font sans-serif">
+	<SearchInput
+		placeholder=""
+		bind:value="{currentQuery}"
+		on:value="{() => $goto($url('/'), currentQuery && { query: currentQuery })}"
+	/><span class="search-button"><SearchButton
+			on:click="{() => $goto($url('/'), currentQuery && { query: currentQuery })}"
+		/></span>
+</div>
 <div class="category-container all font sans-serif">
 	<a
 		class="category-button"
