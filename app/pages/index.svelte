@@ -160,9 +160,17 @@
 
 	.post-body-container {
 		display: flex;
-		flex-direction: row;
-		align-items: flex-start;
+		flex-direction: column-reverse;
+		align-items: center;
 		justify-content: flex-start;
+	}
+
+	@media (min-width: 750px) {
+		.post-body-container {
+			flex-direction: row;
+			align-items: flex-start;
+			justify-content: flex-start;
+		}
 	}
 
 	.post-title {
@@ -191,9 +199,17 @@
 		flex-basis: auto;
 		flex-grow: 0;
 		flex-shrink: 0;
-		margin: auto 0;
-		margin-left: 20px;
 		border-radius: 8px;
+		width: 100%;
+		max-width: 500px;
+	}
+
+	@media (min-width: 750px) {
+		.post-content + .post-thumbnail {
+			margin: auto 0;
+			margin-left: 20px;
+			max-width: 200px;
+		}
 	}
 </style>
 
@@ -430,11 +446,12 @@
 					</div>
 					<h1 class="post-title">{post.title}</h1>
 					<div class="post-body-container">
-						<p class="post-content">{post.contentPreview}</p>
+						{#if post.contentPreview}
+							<p class="post-content">{post.contentPreview}</p>
+						{/if}
 						{#if post.thumbnail}
 							<img
 								class="post-thumbnail"
-								width="200"
 								alt="Thumbnail"
 								src="{post.thumbnail.url}"
 							/>
