@@ -102,4 +102,6 @@
 <svelte:head>
 	<title>New post :: devlog</title>
 </svelte:head>
-<Editor on:post="{onPost}" />
+<main>
+	<Editor on:post="{onPost}" />
+</main>

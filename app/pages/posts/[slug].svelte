@@ -168,25 +168,29 @@
 	{/if}
 </svelte:head>
 {#if post}
-	{#if authenticated}
-		<div class="menu-container font sans-serif">
-			<button
-				class="menu-button red"
-				on:click="{onClickDelete}"
-			><Fontawesome icon="{faTrashAlt}" /></button>
-			<a
-				class="menu-button"
-				href="{$url('/managements/post-editor/:slug', { slug })}"
-			><Fontawesome icon="{faEdit}" /></a>
-		</div>
-	{/if}
-	<Post
-		accessLevel="{post.accessLevel}"
-		category="{post.category?.name}"
-		created="{post.createdAt}"
-		title="{post.title}"
-		content="{post.htmlContent}"
-	/>
+	<main>
+		{#if authenticated}
+			<nav class="menu-container font sans-serif">
+				<button
+					class="menu-button red"
+					on:click="{onClickDelete}"
+				><Fontawesome icon="{faTrashAlt}" /></button>
+				<a
+					class="menu-button"
+					href="{$url('/managements/post-editor/:slug', { slug })}"
+				><Fontawesome icon="{faEdit}" /></a>
+			</nav>
+		{/if}
+		<article>
+			<Post
+				accessLevel="{post.accessLevel}"
+				category="{post.category?.name}"
+				created="{post.createdAt}"
+				title="{post.title}"
+				content="{post.htmlContent}"
+			/>
+		</article>
+	</main>
 {:else if post === null}
 	<Fallback message="Post not found!" />
 {/if}

@@ -136,6 +136,8 @@
 		<title>Edit post :: devlog</title>
 	{/if}
 </svelte:head>
-{#if post}
-	<Editor post="{post}" on:post="{onPost}" />
-{/if}
+<main>
+	{#if post}
+		<Editor post="{post}" on:post="{onPost}" />
+	{/if}
+</main>

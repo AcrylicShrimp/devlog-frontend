@@ -265,8 +265,8 @@
 	}
 </script>
 
-<div>
-	<div class="menu-container">
+<section>
+	<section class="menu-container">
 		<div class="menu-tab-container">
 			<button
 				class="menu-tab-button font sans-serif"
@@ -309,7 +309,7 @@
 		>
 			<Fontawesome icon="{faUpload}" />
 		</button>
-	</div>
+	</section>
 	{#if tab === 'editor'}
 		<div class="input-container long-space font sans-serif">
 			<InputLabel label="Access Level">
@@ -408,4 +408,4 @@
 			/>
 		</div>
 	{/if}
-</div>
+</section>

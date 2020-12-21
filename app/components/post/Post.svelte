@@ -57,24 +57,28 @@
 	export let content;
 </script>
 
-<div class="post-header-container font serif">
-	<span class="post-category" class:exists="{category}">
-		{category ? category : ''}
-	</span>
-	<span>
-		<span class="post-icon">
-			{#if accessLevel === 'unlisted'}
-				<Fontawesome icon="{faLink}" />
-			{:else if accessLevel === 'private'}
-				<Fontawesome icon="{faLock}" />
-			{/if}
-		</span>
-		<span
-			class="post-date"
-		>{dayjs(created).format('YYYY/MM/DD HH:mm')}</span>
-	</span>
-</div>
-<h1 class="post-title font serif">{title}</h1>
-<article class="post-content-container font sans-serif">
-	{@html content}
+<article>
+	<header>
+		<div class="post-header-container font serif">
+			<span class="post-category" class:exists="{category}">
+				{category ? category : ''}
+			</span>
+			<span>
+				<span class="post-icon">
+					{#if accessLevel === 'unlisted'}
+						<Fontawesome icon="{faLink}" />
+					{:else if accessLevel === 'private'}
+						<Fontawesome icon="{faLock}" />
+					{/if}
+				</span>
+				<span
+					class="post-date"
+				>{dayjs(created).format('YYYY/MM/DD HH:mm')}</span>
+			</span>
+		</div>
+		<h1 class="post-title font serif">{title}</h1>
+	</header>
+	<article class="post-content-container font sans-serif">
+		{@html content}
+	</article>
 </article>

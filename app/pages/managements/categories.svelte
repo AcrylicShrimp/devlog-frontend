@@ -163,114 +163,116 @@
 <svelte:head>
 	<title>Categories :: devlog</title>
 </svelte:head>
-{#if categories}
-	{#if categories.length}
-		{#each categories as category}
-			<div class="category">
-				<div class="category-inner-container long">
-					<div class="input-container font sans-serif">
-						<InputLabel label="Name">
-							<Input
-								placeholder="{category.originName || 'Name'}"
-								disabled="{category.locked}"
-								on:value="{() => {
-									category.name = category.name.trim();
-									if (!category.name) category.nameError = 'Name required.';
-									else if (category.name.length > 32) category.nameError = 'Name cannot exceed 32 characters.';
-									if (1 < categories.filter((otherCategory) => otherCategory.name === category.name).length) category.nameError = 'This name is already taken.';
-								}}"
-								bind:value="{category.name}"
-								bind:error="{category.nameError}"
-							/>
-						</InputLabel>
+<main>
+	{#if categories}
+		{#if categories.length}
+			{#each categories as category}
+				<section class="category">
+					<div class="category-inner-container long">
+						<div class="input-container font sans-serif">
+							<InputLabel label="Name">
+								<Input
+									placeholder="{category.originName || 'Name'}"
+									disabled="{category.locked}"
+									on:value="{() => {
+										category.name = category.name.trim();
+										if (!category.name) category.nameError = 'Name required.';
+										else if (category.name.length > 32) category.nameError = 'Name cannot exceed 32 characters.';
+										if (1 < categories.filter((otherCategory) => otherCategory.name === category.name).length) category.nameError = 'This name is already taken.';
+									}}"
+									bind:value="{category.name}"
+									bind:error="{category.nameError}"
+								/>
+							</InputLabel>
+						</div>
+						<div class="input-container font sans-serif">
+							<InputLabel label="Description">
+								<Input
+									placeholder="{category.originDescription || 'Description'}"
+									disabled="{category.locked}"
+									on:value="{() => {
+										category.description = category.description.trim();
+										if (category.description.length > 256) category.descError = 'Category description cannot exceed 256 characters.';
+									}}"
+									bind:value="{category.description}"
+									bind:error="{category.descError}"
+								/>
+							</InputLabel>
+						</div>
 					</div>
-					<div class="input-container font sans-serif">
-						<InputLabel label="Description">
-							<Input
-								placeholder="{category.originDescription || 'Description'}"
-								disabled="{category.locked}"
-								on:value="{() => {
-									category.description = category.description.trim();
-									if (category.description.length > 256) category.descError = 'Category description cannot exceed 256 characters.';
+					<div class="category-inner-container right">
+						{#if category.exists}
+							<button
+								class="category-button red"
+								on:click="{async () => {
+									if (category.locked) return;
+									category.locked = true;
+									try {
+										await axios.delete(
+											`https://api.blog.ashrimp.dev/admin/categories/${category.originName}`,
+											{
+												headers: apiToken && {
+													'Api-Token': apiToken,
+												},
+											}
+										);
+										updateCategoryList();
+									} catch (err) {
+										if (err.response && err.response.status && err.response.status === 401) token.set('');
+										else alert('Error occurred.');
+									}
 								}}"
-								bind:value="{category.description}"
-								bind:error="{category.descError}"
-							/>
-						</InputLabel>
-					</div>
-				</div>
-				<div class="category-inner-container right">
-					{#if category.exists}
+							>
+								<Fontawesome icon="{faTrashAlt}" />
+							</button>
+						{/if}
 						<button
-							class="category-button red"
+							class="category-button"
 							on:click="{async () => {
 								if (category.locked) return;
 								category.locked = true;
 								try {
-									await axios.delete(
-										`https://api.blog.ashrimp.dev/admin/categories/${category.originName}`,
-										{
-											headers: apiToken && {
-												'Api-Token': apiToken,
-											},
-										}
-									);
-									updateCategoryList();
+									if (category.exists) await axios.patch(`https://api.blog.ashrimp.dev/admin/categories/${category.originName}`, { 'new-name': category.name, 'new-desc': category.description }, { headers: apiToken && { 'Api-Token': apiToken } });
+									else await axios.post(`https://api.blog.ashrimp.dev/admin/categories`, { name: category.name, desc: category.description }, { headers: apiToken && { 'Api-Token': apiToken } });
+									category.exists = true;
+									category.originName = category.name;
+									category.originDescription = category.description;
 								} catch (err) {
 									if (err.response && err.response.status && err.response.status === 401) token.set('');
 									else alert('Error occurred.');
+								} finally {
+									category.locked = false;
 								}
 							}}"
 						>
-							<Fontawesome icon="{faTrashAlt}" />
+							<Fontawesome icon="{faSave}" />
 						</button>
-					{/if}
-					<button
-						class="category-button"
-						on:click="{async () => {
-							if (category.locked) return;
-							category.locked = true;
-							try {
-								if (category.exists) await axios.patch(`https://api.blog.ashrimp.dev/admin/categories/${category.originName}`, { 'new-name': category.name, 'new-desc': category.description }, { headers: apiToken && { 'Api-Token': apiToken } });
-								else await axios.post(`https://api.blog.ashrimp.dev/admin/categories`, { name: category.name, desc: category.description }, { headers: apiToken && { 'Api-Token': apiToken } });
-								category.exists = true;
-								category.originName = category.name;
-								category.originDescription = category.description;
-							} catch (err) {
-								if (err.response && err.response.status && err.response.status === 401) token.set('');
-								else alert('Error occurred.');
-							} finally {
-								category.locked = false;
-							}
-						}}"
-					>
-						<Fontawesome icon="{faSave}" />
-					</button>
-				</div>
-			</div>
-		{/each}
-	{:else}
-		<Error message="No category yet!" />
+					</div>
+				</section>
+			{/each}
+		{:else}
+			<Error message="No category yet!" />
+		{/if}
+		<button
+			class="category-add-button"
+			on:click="{() => {
+				categories.push({
+					name: '',
+					description: '',
+					createdAt: new Date(),
+					modifiedAt: new Date(),
+					exists: false,
+					locked: false,
+					originName: '',
+					nameError: undefined,
+					descError: undefined,
+				});
+				categories = categories;
+			}}"
+		>
+			<Fontawesome icon="{faPlusCircle}" />
+		</button>
+	{:else if categories === null}
+		<Error message="Unable to load categories!" />
 	{/if}
-	<button
-		class="category-add-button"
-		on:click="{() => {
-			categories.push({
-				name: '',
-				description: '',
-				createdAt: new Date(),
-				modifiedAt: new Date(),
-				exists: false,
-				locked: false,
-				originName: '',
-				nameError: undefined,
-				descError: undefined,
-			});
-			categories = categories;
-		}}"
-	>
-		<Fontawesome icon="{faPlusCircle}" />
-	</button>
-{:else if categories === null}
-	<Error message="Unable to load categories!" />
-{/if}
+</main>

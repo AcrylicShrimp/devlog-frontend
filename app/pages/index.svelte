@@ -354,7 +354,7 @@
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:title" content="devlog" />
 </svelte:head>
-<div class="search-container font sans-serif">
+<nav class="search-container font sans-serif">
 	<SearchInput
 		placeholder=""
 		bind:value="{currentQuery}"
@@ -362,8 +362,8 @@
 	/><span class="search-button"><SearchButton
 			on:click="{() => $goto($url('/'), currentQuery && { query: currentQuery })}"
 		/></span>
-</div>
-<div class="category-container all font sans-serif">
+</nav>
+<nav class="category-container all font sans-serif">
 	<a
 		class="category-button"
 		class:disabled="{!currentCategoryName}"
@@ -371,9 +371,9 @@
 	>
 		ALL
 	</a>
-</div>
+</nav>
 {#if categories}
-	<div class="category-container font sans-serif">
+	<nav class="category-container font sans-serif">
 		{#each categories as category (category.name)}
 			<a
 				class="category-button"
@@ -383,104 +383,114 @@
 				{category.name}
 			</a>
 		{/each}
-	</div>
+	</nav>
 {/if}
-<div class="category-info-container">
-	{#if currentCategory}
-		<p class="category-info-name font sans-serif raleway">
-			{currentCategory.name}
-		</p>
-		<p class="category-info-desc font sans-serif">
-			{currentCategory.description}
-		</p>
-	{:else}
-		<p class="category-info-name font sans-serif raleway">welcome!</p>
-		<p class="category-info-desc font sans-serif">AcrylicShrimp's Blog</p>
+<main>
+	<section class="category-info-container">
+		{#if currentCategory}
+			<h1 class="category-info-name font sans-serif raleway">
+				{currentCategory.name}
+			</h1>
+			<p class="category-info-desc font sans-serif">
+				{currentCategory.description}
+			</p>
+		{:else}
+			<h1 class="category-info-name font sans-serif raleway">
+				AcrylicShrimp's Blog
+			</h1>
+			<p class="category-info-desc font sans-serif">
+				Welcome, please enjoy!
+			</p>
+		{/if}
+	</section>
+	{#if posts}
+		{#if posts.posts.length}
+			<nav class="page-button-container top">
+				{#if posts.hasAfter}
+					<a
+						class="page-button left"
+						href="{$url('/', Object.assign({ after: posts.posts[0].slug }, currentCategoryName ? { category: currentCategoryName } : {}))}"
+					>
+						<Fontawesome icon="{faLongArrowAltLeft}" />
+					</a>
+				{/if}
+				{#if posts.hasBefore}
+					<a
+						class="page-button right"
+						href="{$url('/', Object.assign({ before: posts.posts[posts.posts.length - 1].slug }, currentCategoryName ? { category: currentCategoryName } : {}))}"
+					>
+						<Fontawesome icon="{faLongArrowAltRight}" />
+					</a>
+				{/if}
+			</nav>
+			{#each posts.posts as post (post.slug)}
+				<a
+					class="post-link"
+					href="{$url('/posts/:slug', { slug: post.slug })}"
+				>
+					<article class="post">
+						<header>
+							<div class="post-header-container">
+								<span
+									class="post-category"
+									class:exists="{post.category}"
+								>
+									{post.category ? post.category.name : ''}
+								</span>
+								<span>
+									<span class="post-icon">
+										{#if post.accessLevel === 'unlisted'}
+											<Fontawesome icon="{faLink}" />
+										{:else if post.accessLevel === 'private'}
+											<Fontawesome icon="{faLock}" />
+										{/if}
+									</span>
+									<span class="post-date">
+										{dayjs(post.createdAt).format('YYYY/MM/DD HH:mm')}
+									</span>
+								</span>
+							</div>
+							<h2 class="post-title">{post.title}</h2>
+						</header>
+						<article class="post-body-container">
+							{#if post.contentPreview}
+								<p class="post-content">
+									{post.contentPreview}
+								</p>
+							{/if}
+							{#if post.thumbnail}
+								<img
+									class="post-thumbnail"
+									alt="Thumbnail"
+									src="{post.thumbnail.url}"
+								/>
+							{/if}
+						</article>
+					</article>
+				</a>
+			{/each}
+			<nav class="page-button-container bottom">
+				{#if posts.hasAfter}
+					<a
+						class="page-button left"
+						href="{$url('/', Object.assign({ after: posts.posts[0].slug }, currentCategoryName ? { category: currentCategoryName } : {}))}"
+					>
+						<Fontawesome icon="{faLongArrowAltLeft}" />
+					</a>
+				{/if}
+				{#if posts.hasBefore}
+					<a
+						class="page-button right"
+						href="{$url('/', Object.assign({ before: posts.posts[posts.posts.length - 1].slug }, currentCategoryName ? { category: currentCategoryName } : {}))}"
+					>
+						<Fontawesome icon="{faLongArrowAltRight}" />
+					</a>
+				{/if}
+			</nav>
+		{:else}
+			<Error message="No post yet!" />
+		{/if}
+	{:else if posts === null}
+		<Error message="Unable to load posts!" />
 	{/if}
-</div>
-{#if posts}
-	{#if posts.posts.length}
-		<div class="page-button-container top">
-			{#if posts.hasAfter}
-				<a
-					class="page-button left"
-					href="{$url('/', Object.assign({ after: posts.posts[0].slug }, currentCategoryName ? { category: currentCategoryName } : {}))}"
-				>
-					<Fontawesome icon="{faLongArrowAltLeft}" />
-				</a>
-			{/if}
-			{#if posts.hasBefore}
-				<a
-					class="page-button right"
-					href="{$url('/', Object.assign({ before: posts.posts[posts.posts.length - 1].slug }, currentCategoryName ? { category: currentCategoryName } : {}))}"
-				>
-					<Fontawesome icon="{faLongArrowAltRight}" />
-				</a>
-			{/if}
-		</div>
-		{#each posts.posts as post (post.slug)}
-			<a
-				class="post-link"
-				href="{$url('/posts/:slug', { slug: post.slug })}"
-			>
-				<article class="post">
-					<div class="post-header-container">
-						<span
-							class="post-category"
-							class:exists="{post.category}"
-						>
-							{post.category ? post.category.name : ''}
-						</span>
-						<span>
-							<span class="post-icon">
-								{#if post.accessLevel === 'unlisted'}
-									<Fontawesome icon="{faLink}" />
-								{:else if post.accessLevel === 'private'}
-									<Fontawesome icon="{faLock}" />
-								{/if}
-							</span>
-							<span class="post-date">
-								{dayjs(post.createdAt).format('YYYY/MM/DD HH:mm')}
-							</span>
-						</span>
-					</div>
-					<h1 class="post-title">{post.title}</h1>
-					<div class="post-body-container">
-						{#if post.contentPreview}
-							<p class="post-content">{post.contentPreview}</p>
-						{/if}
-						{#if post.thumbnail}
-							<img
-								class="post-thumbnail"
-								alt="Thumbnail"
-								src="{post.thumbnail.url}"
-							/>
-						{/if}
-					</div>
-				</article>
-			</a>
-		{/each}
-		<div class="page-button-container bottom">
-			{#if posts.hasAfter}
-				<a
-					class="page-button left"
-					href="{$url('/', Object.assign({ after: posts.posts[0].slug }, currentCategoryName ? { category: currentCategoryName } : {}))}"
-				>
-					<Fontawesome icon="{faLongArrowAltLeft}" />
-				</a>
-			{/if}
-			{#if posts.hasBefore}
-				<a
-					class="page-button right"
-					href="{$url('/', Object.assign({ before: posts.posts[posts.posts.length - 1].slug }, currentCategoryName ? { category: currentCategoryName } : {}))}"
-				>
-					<Fontawesome icon="{faLongArrowAltRight}" />
-				</a>
-			{/if}
-		</div>
-	{:else}
-		<Error message="No post yet!" />
-	{/if}
-{:else if posts === null}
-	<Error message="Unable to load posts!" />
-{/if}
+</main>

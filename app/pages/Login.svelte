@@ -80,7 +80,7 @@
 <svelte:head>
 	<title>Login :: devlog</title>
 </svelte:head>
-<div class="container">
+<main class="container">
 	<div class="input-container font sans-serif">
 		<InputLabel label="Username">
 			<Input
@@ -121,4 +121,4 @@
 			<Fontawesome icon="{faSignIn}" />
 		</button>
 	</div>
-</div>
+</main>

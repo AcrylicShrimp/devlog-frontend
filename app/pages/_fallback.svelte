@@ -5,4 +5,6 @@
 <svelte:head>
 	<title>Not found :: devlog</title>
 </svelte:head>
-<Error message="Page not found!" />
+<main>
+	<Error message="Page not found!" />
+</main>
