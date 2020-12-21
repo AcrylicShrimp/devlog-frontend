@@ -10,7 +10,7 @@
 		justify-content: start;
 		margin-left: auto;
 		margin-right: auto;
-		padding: 15px 12px;
+		padding: 15px 12px 35px 12px;
 		max-width: 860px;
 		min-height: 200px;
 	}
@@ -22,8 +22,12 @@
 		text-decoration: none;
 	}
 
+	.footer-text + .footer-text {
+		margin-top: 12px;
+	}
+
 	.footer-spacer {
-		margin-top: auto;
+		margin-top: 35px;
 	}
 
 	.footer-button {
@@ -47,6 +51,7 @@
 </style>
 
 <script>
+	import { faGithub } from '@fortawesome/free-brands-svg-icons';
 	import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 	import { faEnvelope } from '@fortawesome/pro-regular-svg-icons';
 	import { url } from '@sveltech/routify';
@@ -110,10 +115,25 @@
 			</a>
 		{/if}
 		<div class="footer-spacer"></div>
-		<a class="footer-text" href="https://twitter.com/AcrylicShrimp">
+		<a
+			class="footer-text"
+			href="https://github.com/AcrylicShrimp"
+			target="_blank"
+		>
+			<Fontawesome icon="{faGithub}" />
+			AcrylicShrimp</a>
+		<a
+			class="footer-text"
+			href="https://twitter.com/AcrylicShrimp"
+			target="_blank"
+		>
 			<Fontawesome icon="{faTwitter}" />
 			AcrylicShrimp</a>
-		<a class="footer-text" href="mailto:led789zxpp@naver.com">
+		<a
+			class="footer-text"
+			href="mailto:led789zxpp@naver.com"
+			target="_blank"
+		>
 			<Fontawesome icon="{faEnvelope}" />
 			led789zxpp@naver.com</a>
 		<span class="footer-text">
