@@ -265,6 +265,12 @@
 	}
 </script>
 
+<svelte:head>
+	<meta
+		http-equiv="Content-Security-Policy"
+		content="img-src 'self' https: data:;"
+	/>
+</svelte:head>
 <section>
 	<section class="menu-container">
 		<div class="menu-tab-container">
