@@ -135,6 +135,10 @@
 	{:else}
 		<title>Edit post :: devlog</title>
 	{/if}
+	<link
+		rel="canonical"
+		href="{`https://blog.ashrimp.dev/managements/post-editor/${slug}`}"
+	/>
 </svelte:head>
 <main>
 	{#if post}

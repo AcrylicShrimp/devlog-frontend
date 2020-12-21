@@ -79,6 +79,7 @@
 
 <svelte:head>
 	<title>Login :: devlog</title>
+	<link rel="canonical" href="https://blog.ashrimp.dev/login" />
 </svelte:head>
 <main class="container">
 	<div class="input-container font sans-serif">

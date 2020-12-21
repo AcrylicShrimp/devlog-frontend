@@ -116,6 +116,11 @@
 <svelte:head>
 	{#if post}
 		<title>{post.title} :: devlog</title>
+	{:else}
+		<title>Post :: devlog</title>
+	{/if}
+	<link rel="canonical" href="{`https://blog.ashrimp.dev/posts/${slug}`}" />
+	{#if post}
 		<meta
 			name="description"
 			content="{JSON.stringify({
@@ -158,7 +163,6 @@
 			<meta name="twitter:card" content="summary" />
 		{/if}
 	{:else}
-		<title>Post :: devlog</title>
 		<meta property="og:title" content="Post" />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="{window.location.href}" />

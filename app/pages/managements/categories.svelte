@@ -162,6 +162,10 @@
 
 <svelte:head>
 	<title>Categories :: devlog</title>
+	<link
+		rel="canonical"
+		href="https://blog.ashrimp.dev/managements/categories"
+	/>
 </svelte:head>
 <main>
 	{#if categories}

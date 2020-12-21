@@ -345,6 +345,7 @@
 
 <svelte:head>
 	<title>Posts :: devlog</title>
+	<link rel="canonical" href="https://blog.ashrimp.dev/" />
 	<meta name="description" content="AcrylicShrimp's Blog" />
 	<meta property="og:title" content="devlog" />
 	<meta property="og:type" content="website" />

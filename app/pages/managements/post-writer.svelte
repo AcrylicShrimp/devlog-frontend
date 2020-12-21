@@ -101,6 +101,10 @@
 
 <svelte:head>
 	<title>New post :: devlog</title>
+	<link
+		rel="canonical"
+		href="https://blog.ashrimp.dev/managements/post-writer"
+	/>
 </svelte:head>
 <main>
 	<Editor on:post="{onPost}" />
