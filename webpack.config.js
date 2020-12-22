@@ -1,6 +1,8 @@
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackSkipAssetsPlugin = require('html-webpack-skip-assets-plugin')
+	.HtmlWebpackSkipAssetsPlugin;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
@@ -11,6 +13,7 @@ const config = {
 	target: 'web',
 	entry: {
 		index: './app/index.js',
+		'ssr-index': './app/ssr-index.js',
 	},
 	optimization: {
 		splitChunks: {
@@ -92,7 +95,9 @@ const config = {
 					minifyURLs: true,
 				}) ||
 				undefined,
+			excludeAssets: [/index\.m?js$/],
 		}),
+		new HtmlWebpackSkipAssetsPlugin(),
 		new OptimizeCssAssetsPlugin(),
 	],
 	resolve: {
