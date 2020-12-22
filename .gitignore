@@ -178,6 +178,9 @@ $RECYCLE.BIN/
 # Private deployment script.
 deploy.sh
 
+# Favicon
+favicon.ico
+
 # SEO-related
 robots.txt
 
