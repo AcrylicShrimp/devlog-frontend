@@ -110,7 +110,7 @@ const config = {
 	},
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		publicPath: '/',
+		publicPath: 'https://cdn.blog.ashrimp.dev/',
 		filename: '[name].js',
 		chunkFilename: '[name].[id].[contenthash].js',
 	},
