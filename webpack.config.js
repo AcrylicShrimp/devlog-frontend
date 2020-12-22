@@ -22,7 +22,6 @@ const config = {
 					name: 'styles',
 					test: /\.css$/,
 					chunks: 'all',
-					enforce: true,
 				},
 			},
 		},
@@ -69,14 +68,16 @@ const config = {
 				test: /\.(otf|ttf|eot|woff2?|svg)$/,
 				loader: 'file-loader',
 				options: {
-					name: 'fonts/[name].[ext]',
+					name: 'fonts/[name].[contenthash].[ext]',
 				},
 			},
 		],
 	},
 	plugins: [
 		new MiniCssExtractPlugin({
-			filename: '[name].css',
+			filename: '[name].[id].[contenthash].css',
+			chunkFilename: '[name].[id].[contenthash].css',
+			ignoreOrder: false,
 		}),
 		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, 'app', 'index.html'),
@@ -111,7 +112,7 @@ const config = {
 		path: path.resolve(__dirname, 'dist'),
 		publicPath: '/',
 		filename: '[name].js',
-		chunkFilename: 'chunk-[name].js',
+		chunkFilename: '[name].[id].[contenthash].js',
 	},
 	devServer: {
 		historyApiFallback: true,
